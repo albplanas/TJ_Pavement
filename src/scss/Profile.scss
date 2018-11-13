@@ -1,0 +1,43 @@
+// Small devices (landscape phones, 576px and up)
+@media (max-width: 576px) {
+   #mainButton{
+        width: 40vw;
+        margin-top:auto; 
+        margin-bottom:auto;
+   }
+   #navbarNavDropdown ul li{
+        text-align: center;
+   }
+}
+@media (min-width: 577px) and (max-width: 992px){
+    #mainButton{
+         width: 25vw;
+         margin-top:auto; 
+         margin-bottom:auto; 
+    }
+    #navbarNavDropdown ul li{
+        text-align: center;
+   }
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 993px) { 
+    #navbarNavDropdown ul li a {
+        background:rgb(249,249,249) !important;
+        color:rgb(166, 31, 52) !important;
+    }
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { }
+
+
+
+#navbarNavDropdown ul{
+    
+    margin:10px;
+}
+#navbarNavDropdown ul li{
+    
+    margin:5px;
+}
