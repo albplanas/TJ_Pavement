@@ -6,13 +6,16 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
   letter-spacing: 1px;
 }
-
+#Log{
+  overflow-y: hidden !important;
+}
 #Log section {
   width: 100%;
   height: 100vh;
   background-image: url(http://jvaengineering.com/wp-content/uploads/2017/02/Picture-02.jpg);
   background-size: cover;
   background-position: center;
+
 }
 
 #Log .layer {
@@ -31,6 +34,7 @@ body {
   transform: translate(-50%, -50%);
   width: 340px;
   text-align: center;
+  
 }
 
 #Log .login-form {
@@ -38,6 +42,7 @@ body {
   box-sizing: border-box;
   padding: 60px 30px;
   transition: 0.5s;
+
 }
 
 #Log .login-form:hover {

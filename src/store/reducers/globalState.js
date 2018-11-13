@@ -2,9 +2,9 @@ import * as actionTypes from '../actions';
 
 const initialState = {
 
-    login: true,
-    driver:false
-
+    login: false,
+    driver:false,
+    openReport:false
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +15,11 @@ const reducer = (state = initialState, action) => {
                             ...state,
                             login:action.value
                         }
-                                                
+        case actionTypes.OPENREPORT:
+                        return {
+                            ...state,
+                            openReport:action.value,
+                        }                                       
     }
     return state;
 };
