@@ -2,7 +2,7 @@ import * as actionTypes from '../actions';
 
 const initialState = {
 
-    login: true,
+    login: false,
     driver:false
 
 }
