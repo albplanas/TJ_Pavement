@@ -3,7 +3,7 @@
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
-
+const mysql  = require('mysql');
 const routes      = require('./routes.js');
 const auth        = require('./auth.js');
 
@@ -17,8 +17,23 @@ const database  = "mongodb://Adrian:fresh_one1@ds231961.mlab.com:31961/fresh_one
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+/************************************************ */
 
+/*
+var conSQL = mysql.createConnection({
+  host: "https://www.godaddy.com/",
+  user: "AdminJVA",
+  password: "123qwe"
+});
+	
+ 
+conSQL.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+*/
 
+/******************************** */
 var Profile = new mongoose.Schema(
   {
     

@@ -1,3 +1,3 @@
 
 //General State
-export const MAINMENU           = "MAINMENU";
+export const LOGIN           = "LOGIN";
