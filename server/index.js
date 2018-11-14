@@ -3,7 +3,7 @@
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
-const mysql  = require('mysql');
+//const mysql  = require('mysql');
 const routes      = require('./routes.js');
 const auth        = require('./auth.js');
 

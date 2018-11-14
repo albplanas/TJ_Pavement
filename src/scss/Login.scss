@@ -27,22 +27,26 @@ body {
   height: 100%;
 }
 
-#Log .container {
+#Log .container-fluid {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 60vh;
+  left: 12.5vw;
+  width:100vw;
   transform: translate(-50%, -50%);
-  width: 340px;
+
   text-align: center;
-  
 }
 
-#Log .login-form {
-  position: relative;
+.login-form {
+  position: absolute;
+  top: 20vh;
+  left: 12.5vw;
+  width:75vw;
+  height:160px;
   box-sizing: border-box;
-  padding: 60px 30px;
+  padding: 6vh 3vw;
   transition: 0.5s;
-
+  
 }
 
 #Log .login-form:hover {
@@ -96,3 +100,33 @@ body {
   color: white;
   text-transform: uppercase;
 }
+
+
+// Small devices (landscape phones, 576px and up)
+
+@media (min-width: 577px) {
+  #Log .container {
+    position: absolute;
+    top: 60vh;
+    left: calc( 50vh - 200px );
+    padding-left: 25%;
+    width:400px;
+    transform: translate(-50%, -50%);
+  
+    text-align: center;
+    
+  }
+  
+  #Log .login-form {
+    position: absolute;
+    top: 20vh;
+    left: calc(50vh - 200px);
+    width:400px;
+    height: 160px;
+    box-sizing: border-box;
+    padding: 6vh 3vw;
+    transition: 0.5s;
+    
+  }
+}
+
