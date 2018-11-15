@@ -8,6 +8,10 @@
    #navbarNavDropdown ul li{
         text-align: center;
    }
+
+   #display{
+            margin-left : 0;
+        }
 }
 @media (min-width: 577px) and (max-width: 992px){
     #mainButton{
@@ -50,4 +54,19 @@
     padding-bottom: auto;
     padding-left:20px;
     height: 100%;
+}
+
+#newReport{
+    overflow: hidden !important;
+    width: 100vw;
+    position:absolute;
+    top:5vh;
+    left:0vw;
+}
+#EmployeeReport{
+    overflow: hidden !important;
+    width: 100vw;
+    position:absolute;
+    top:5vh;
+    left:0vw;
 }

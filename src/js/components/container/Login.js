@@ -27,7 +27,7 @@ class Login extends Component {
         <div id="Log">
                     <section>
                         <div class="layer"></div>
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="login-form">
                             <h1>Sign In</h1>
                             <div>
