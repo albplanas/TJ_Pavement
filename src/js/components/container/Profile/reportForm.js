@@ -154,8 +154,10 @@ Check_in_doneList(name){
                                                         
                                                             <h3 className="col-auto text-dark ml-3 mb-5 mt-2"><u>Attendees Report</u></h3>
                                                           
-                                                            <a style={{fontSize:"20px",position:"absolute",right:"4vw",top:"0px",color:"red"}} onClick={this.cancel}><i class=" fas fa-times-circle"   /></a> 
-
+                                                            
+                                                            <button type="button" class="btn border-danger text-danger rounded-circle Close-btn"  aria-label="Close" onClick={this.cancel}>
+                                                                <span aria-hidden="true" onClick={this.cancel} >&times;</span>
+                                                              </button>
                                                               <div class="form-group row ml-5">
                                                                 <label class="col-3 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
                                                                 <select class="col-6 custom-select mb-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>

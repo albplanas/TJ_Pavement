@@ -76,8 +76,11 @@ class EmployeeInfo extends Component {
       return (
         <div  id ="EmployeeReport" >
          <div className="container">
-         <a style={{fontSize:"20px",position:"absolute",right:"6vw",top:"0px",color:"red"}} onClick={this.props.cancel} ><i onClick={this.props.cancel} class=" fas fa-times-circle"   /></a> 
-        <h4 className="col-auto text-dark  mb-5 mt-2 "> <u>{this.state.EmployeeReport[this.state.select].name}</u></h4>
+         <h4 className="col-auto text-dark  mb-5 mt-2 "> <u>{this.state.EmployeeReport[this.state.select].name}</u></h4>
+          <button type="button" class="btn border-danger text-danger rounded-circle Close-btn" id="close2" aria-label="Close" onClick={this.props.cancel}>
+            <span aria-hidden="true" onClick={this.props.cancel} >&times;</span>
+          </button>
+        
         
          </div>
             <hr/>
