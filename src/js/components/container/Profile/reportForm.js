@@ -132,7 +132,7 @@ Check_in_doneList(name){
         return (
             <li className="ListElem row " >
                 <div className={check}  id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" >{elem.name}</h6></div>
-               <div className="col-3 "> <button className=" btn btn-dark " name={index+''} style={{maxWidth:"40px"}}  onClick={this.delete} ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt"/></button></div>
+               <div className="col-3 "> <button className=" btn btn-dark " name={index+''} style={{width:"40px"}}  onClick={this.delete} ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt"/></button></div>
               </li>
           )
       })
@@ -182,7 +182,7 @@ Check_in_doneList(name){
                                                                                             {arrayWholeList}
                                                                             </select>
                                                                       
-                                                                      <div className="col-3 "> <button className=" btn btn-primary " style={{maxWidth:"40px"}}  onClick={this.add} ><i onClick={this.add} class="fas fa-plus"></i></button></div>
+                                                                      <div className="col-3 "> <button className=" btn btn-primary " style={{width:"40px"}}  onClick={this.add} ><i onClick={this.add} class="fas fa-plus"></i></button></div>
                                                                     </li>
                                                                     <hr className="col-7" />
                                                                       {arrayEmployee}

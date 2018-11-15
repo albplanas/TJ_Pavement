@@ -66,7 +66,7 @@ class EmployeeInfo extends Component {
                         return (
                           <div class="form-group row ml-5"> 
                             <label class="control-label col-7" for="name">{elem}</label>
-                            <input class="form-control  col-3" id={elem+"_"+this.state.EmployeeReport[this.state.select].name} name={index+''} type="number" onChange={this.change} value={this.state.EmployeeReport[this.state.select].Categories[index]}/>
+                            <input class="form-control  col-5" id={elem+"_"+this.state.EmployeeReport[this.state.select].name} name={index+''} type="number" onChange={this.change} value={this.state.EmployeeReport[this.state.select].Categories[index]}/>
                           </div>
                         )
     })
