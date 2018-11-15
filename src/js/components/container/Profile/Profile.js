@@ -8,12 +8,12 @@ class Profile extends Component {
 
     render() {      
       return (
-        this.props.newReport ===true ? <ReportForm/> : <HomeProfile/>)}
+        this.props.openReport ===true ? <ReportForm/> : <HomeProfile/>)}
   }
   
   const mapStateToProps = state => {
     return {
-        newReport:state.globalState.newReport
+        openReport:state.globalState.openReport
     };
   };
 

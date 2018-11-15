@@ -7,8 +7,10 @@ import Profile from './Profile/Profile'
 
 function Home(props) {
 
+    console.log(props.login)
       return (
-         <Profile/>
+        
+             props.login === false ?  <Login/> : <Profile/>
 
       );
     }
