@@ -9,7 +9,9 @@ class reportForm extends Component {
 
         this.state={
           selectEmployee:"",
-          Employees:[]
+          Employees:[],
+          projSelect:"",
+          doneList:[],
         }
         
  
@@ -18,8 +20,11 @@ class reportForm extends Component {
         this.delete=this.delete.bind(this)
         this.add=this.add.bind(this);
         this.unSelectEmployee=this.unSelectEmployee.bind(this);
+        this.UpdateForm=this.UpdateForm.bind(this);
+        this.Check_in_doneList=this.Check_in_doneList.bind(this)
      }
      unSelectEmployee(){
+       console.log("click")
           this.setState({
             selectEmployee:""
           })
@@ -49,15 +54,45 @@ class reportForm extends Component {
      }
 
      add(){
-      var list = this.state.Employees.concat({name:document.getElementById("addWorker").value, Categories:["A","B"]})
+      var ctg=this.props.Project[this.props.ProjectSelect].Categories;
+      var Categories = Array.apply(null, Array(ctg.length)).map(Number.prototype.valueOf,0);
+      var list = this.state.Employees.concat({name:document.getElementById("addWorker").value, Categories:Categories})
      
       this.props.onDeleteWorker(list)
       this.setState({Employees:list})
       
 }
 
+UpdateForm(list,name){
+  var done =this.state.doneList.concat(name)
+  this.setState({
+     Employees:list,
+     selectEmployee:"",
+     doneList:done
+  })
+}
+
+Check_in_doneList(name){
+  for(var i=0;i< this.state.doneList.length;i++){
+    if(name===this.state.doneList[i])
+    {return true }
+
+  }
+  return false
+}
   componentWillMount() {
-    this.setState({ Employees:this.props.Employees})
+    var ctg=this.props.Project[this.props.ProjectSelect].Categories;
+    var Categories = Array.apply(null, Array(ctg.length)).map(Number.prototype.valueOf,0);
+
+    var Employees=this.props.Employees.map(elem=>{
+                        
+                      return {
+                        name:elem.name,
+                        Categories:Categories
+                      }
+    })
+    this.setState({ Employees:Employees,
+                    projSelect:this.props.ProjectSelect})
 
   }
 
@@ -66,20 +101,37 @@ class reportForm extends Component {
   //Update the list
  componentWillReceiveProps(nextProps) {
 
-   
-    nextProps.Employees.length!==this.state.Employees ? this.setState({  Employees:nextProps.Employees  }) : null
+    if(nextProps.ProjectSelect!==this.state.projSelect){
+          var ctg=this.props.Project[this.props.ProjectSelect].Categories;
+          var Categories = Array.apply(null, Array(ctg.length)).map(Number.prototype.valueOf,0);
+
+          var Employees=this.props.Employees.map(elem=>{
+                        
+            return {
+              name:elem.name,
+              Categories:Categories
+            }
+            })
+            this.setState({ Employees:Employees,
+                      projSelect:nextProps.ProjectSelect})
+                }
+    else if(nextProps.Employees.length!==this.state.Employees ) {
+            this.setState({  Employees:nextProps.Employees,projSelect:nextProps.ProjectSelect  })
+    }           
+    
                
 
     }
 
     render() {
 
-     var listEmployee=this.state.Employees.map(elem=>elem.name);
+    
      //Employee
-      var arrayEmployee= listEmployee.map((elem,index)=>{
+      var arrayEmployee= this.state.Employees.map((elem,index)=>{
+      var  check=this.Check_in_doneList(elem.name)? "col-7 Elem shadow border border-success":"col-7 Elem shadow border border-danger"
         return (
             <li className="ListElem row " >
-                <div className="col-7 Elem shadow border border-danger " id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" >{elem}</h6></div>
+                <div className={check}  id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" >{elem.name}</h6></div>
                <div className="col-3 "> <button className=" btn btn-dark " name={index+''}  onClick={this.delete} ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt"/></button></div>
               </li>
           )
@@ -87,9 +139,9 @@ class reportForm extends Component {
 
 
       //Project
-      var listProject=this.props.Project.map(elem=>elem);
-          
-      var arrayProject= listProject.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
+      var listProject=this.props.Project.map(elem=>elem.name);
+        
+      var arrayProject= listProject.map((elem,index)=>{ return ( <option className="text-dark" value={index}>{elem}</option> )})
 
 
         //WholeList
@@ -97,7 +149,7 @@ class reportForm extends Component {
         var arrayWholeList= this.props.WholeList.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
 
 
-      return this.state.selectEmployee !== "" ? <EmployeeInfo info={this.state} cancel={this.unSelectEmployee}/> :(
+      return this.state.selectEmployee !== "" ? <EmployeeInfo info={this.state} cancel={this.unSelectEmployee} update={this.UpdateForm} projectSet={this.props.Project}/> :(
                                                       <div id ="newReport">
                                                         
                                                             <h3 className="col-auto text-dark ml-3 mb-5 mt-2"><u>Attendees Report</u></h3>
@@ -105,8 +157,8 @@ class reportForm extends Component {
                                                             <a style={{fontSize:"20px",position:"absolute",right:"4vw",top:"0px",color:"red"}} onClick={this.cancel}><i class=" fas fa-times-circle"   /></a> 
 
                                                               <div class="form-group row ml-5">
-                                                                <label class="col-3 mr-sm-2" for="inlineFormCustomSelect">Project</label>
-                                                                <select class="col-6 custom-select mb-3" id="inlineFormCustomSelect">
+                                                                <label class="col-3 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
+                                                                <select class="col-6 custom-select mb-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
                                                                   {arrayProject}
                                                                 </select>
                                                               </div>
@@ -137,13 +189,15 @@ class reportForm extends Component {
         Employees:state.globalState.Employees,
         Project:state.globalState.Project,
         Supervisor:state.globalState.Supervisor,
-        WholeList:state.globalState.WholeList
+        WholeList:state.globalState.WholeList,
+        ProjectSelect:state.globalState.ProjectSelect
     };
   };
   const mapDispatchToProps = dispatch => {
     return {
         onSelectReport: (value,name) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name}),
-        onDeleteWorker: (list) => dispatch({type: actionTypes.DELETEWORKER , list:list})
+        onDeleteWorker: (list) => dispatch({type: actionTypes.DELETEWORKER , list:list}),
+        onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value})
     };
 };
   export default connect(mapStateToProps,mapDispatchToProps)(reportForm);

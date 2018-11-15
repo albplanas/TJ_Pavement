@@ -46,7 +46,8 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "signature_pad": "^3.0.0-beta.3"
   },
   "jest": {
     "transform": {}

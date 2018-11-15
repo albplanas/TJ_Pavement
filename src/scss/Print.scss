@@ -1,0 +1,16 @@
+canvas{
+    width: 100%;
+    max-width:400px;
+    height:200px;
+    margin-left: 12;
+    margin-right: auto;
+}
+canvas:hover {
+cursor: crosshair;
+}
+
+@media (min-width: 500px) { 
+    canvas{
+        margin-left:calc(50% - 220px)
+    }
+ }
