@@ -158,6 +158,8 @@ Check_in_doneList(name){
                                                             <button type="button" class="btn border-danger text-danger rounded-circle Close-btn"  aria-label="Close" onClick={this.cancel}>
                                                                 <span aria-hidden="true" onClick={this.cancel} >&times;</span>
                                                               </button>
+
+                                                           <div className="container">   
                                                               <div class="form-group row ml-5">
                                                                 <label class="col-3 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
                                                                 <select class="col-6 custom-select mb-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
@@ -180,6 +182,9 @@ Check_in_doneList(name){
                                                                       {arrayEmployee}
                                                                 </ul>
                                                               </div>
+
+                                                               <button type="button" class="btn float-right btn-success btn-circle btn-xl"><i class="fa fa-paper-plane"></i></button>
+                                                             </div>  
                                                         
                                                       </div>
       );
