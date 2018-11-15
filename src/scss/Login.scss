@@ -30,7 +30,6 @@ body {
 #Log .container-fluid {
   position: absolute;
   top: 60vh;
-  left: 12.5vw;
   width:100vw;
   transform: translate(-50%, -50%);
 
@@ -41,6 +40,7 @@ body {
   position: absolute;
   top: 20vh;
   left: 12.5vw;
+  padding-left: -50px;
   width:75vw;
   height:160px;
   box-sizing: border-box;
@@ -108,7 +108,7 @@ body {
   #Log .container {
     position: absolute;
     top: 400px;
-    left:150px;
+    left:130px;
     padding-left: 25%;
     width:400px;
     transform: translate(-50%, -50%);

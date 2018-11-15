@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 
 import * as actionTypes from './../../../../store/actions';
 import EmployeeInfo from './Report/EmployeeInfo';
+
+
+const  { checkTheList,signatureCheck}   = require('./Validation');
+
+
+
 class reportForm extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +30,7 @@ class reportForm extends Component {
         this.Check_in_doneList=this.Check_in_doneList.bind(this)
      }
      unSelectEmployee(){
-       console.log("click")
+      
           this.setState({
             selectEmployee:""
           })
@@ -39,8 +45,8 @@ class reportForm extends Component {
       }    
 
      cancel(e){
-      
-         this.props.onSelectReport(false,"newReport")
+         
+         this.props.onSelectReport(false,this.props.supervisorSelect,this.props.date)
      }
 
 
@@ -54,12 +60,17 @@ class reportForm extends Component {
      }
 
      add(){
-      var ctg=this.props.Project[this.props.ProjectSelect].Categories;
-      var Categories = Array.apply(null, Array(ctg.length)).map(Number.prototype.valueOf,0);
-      var list = this.state.Employees.concat({name:document.getElementById("addWorker").value, Categories:Categories})
+      
+      var name=document.getElementById("addWorker").value;
+      var nameList= this.state.Employees.map(elem=>elem.name);
      
-      this.props.onDeleteWorker(list)
-      this.setState({Employees:list})
+      if(!checkTheList(name,nameList)){
+        var list = this.state.Employees.concat({name:name, Hours:[]})
+     
+        this.props.onDeleteWorker(list)
+        this.setState({Employees:list})
+      }
+      
       
 }
 
@@ -81,17 +92,8 @@ Check_in_doneList(name){
   return false
 }
   componentWillMount() {
-    var ctg=this.props.Project[this.props.ProjectSelect].Categories;
-    var Categories = Array.apply(null, Array(ctg.length)).map(Number.prototype.valueOf,0);
 
-    var Employees=this.props.Employees.map(elem=>{
-                        
-                      return {
-                        name:elem.name,
-                        Categories:Categories
-                      }
-    })
-    this.setState({ Employees:Employees,
+    this.setState({ Employees:this.props.Employees,
                     projSelect:this.props.ProjectSelect})
 
   }
@@ -102,20 +104,13 @@ Check_in_doneList(name){
  componentWillReceiveProps(nextProps) {
 
     if(nextProps.ProjectSelect!==this.state.projSelect){
-          var ctg=this.props.Project[this.props.ProjectSelect].Categories;
-          var Categories = Array.apply(null, Array(ctg.length)).map(Number.prototype.valueOf,0);
+         
 
-          var Employees=this.props.Employees.map(elem=>{
-                        
-            return {
-              name:elem.name,
-              Categories:Categories
-            }
-            })
-            this.setState({ Employees:Employees,
+        
+            this.setState({ Employees:nextProps.Employees,
                       projSelect:nextProps.ProjectSelect})
                 }
-    else if(nextProps.Employees.length!==this.state.Employees ) {
+    else if(nextProps.Employees.length!==this.state.Employees.length ) {
             this.setState({  Employees:nextProps.Employees,projSelect:nextProps.ProjectSelect  })
     }           
     
@@ -125,6 +120,7 @@ Check_in_doneList(name){
 
     render() {
 
+      
     
      //Employee
       var arrayEmployee= this.state.Employees.map((elem,index)=>{
@@ -147,19 +143,14 @@ Check_in_doneList(name){
         //WholeList
           
         var arrayWholeList= this.props.WholeList.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
-        
-        //Date
-        var time = new Date().getTime();
        
-        var date = new Date(time);
-       date=date.toDateString()
-        console.log(date)
 
       return this.state.selectEmployee !== "" ? <EmployeeInfo info={this.state} cancel={this.unSelectEmployee} update={this.UpdateForm} projectSet={this.props.Project}/> :(
                                                       <div id ="newReport">
                                                         
                                                             <h3 className="col-auto text-dark ml-3 mb-1 mt-2"><u>Attendees Report</u></h3>
-                                                            <h6 className="col-auto text-dark ml-3 mb-5 ">{date+''}</h6>
+                                                            <h6 className="col-auto text-dark ml-3 mb-1 ">{this.props.supervisorSelect+''}</h6>
+                                                            <h6 className="col-auto text-dark ml-3 mb-5 ">{this.props.date+''}</h6>
                                                             
                                                             <button type="button" class="btn border-danger text-danger rounded-circle Close-btn"  aria-label="Close" onClick={this.cancel}>
                                                                 <span aria-hidden="true" onClick={this.cancel} >&times;</span>
@@ -203,12 +194,15 @@ Check_in_doneList(name){
         Project:state.globalState.Project,
         Supervisor:state.globalState.Supervisor,
         WholeList:state.globalState.WholeList,
-        ProjectSelect:state.globalState.ProjectSelect
+        ProjectSelect:state.globalState.ProjectSelect,
+        date:state.globalState.dateSelect,
+        supervisorSelect:state.globalState.supervisorSelect,
+
     };
   };
   const mapDispatchToProps = dispatch => {
     return {
-        onSelectReport: (value,name) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name}),
+      onSelectReport: (value,name,date) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name,date:date}),
         onDeleteWorker: (list) => dispatch({type: actionTypes.DELETEWORKER , list:list}),
         onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value})
     };

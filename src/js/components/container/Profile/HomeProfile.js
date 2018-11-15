@@ -11,8 +11,10 @@ class HomeProfile extends Component {
         this.Select=this.Select.bind(this)
      }
 
-     Select(e){
-            this.props.onSelectReport(true,e.target.name)
+     Select(){
+            var Supervisor=document.getElementById("inlineFormCustomSelectSuperv").value;
+            var date=document.getElementById("inlineFormCustomSelectDate").value;
+            this.props.onSelectReport(true,Supervisor,date)
      }
 
 
@@ -22,6 +24,21 @@ class HomeProfile extends Component {
  var listSupervisor=this.props.Supervisor.map(elem=>elem);
      
  var arraySupervisor= listSupervisor.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
+ //Date
+ 
+        
+        var time = new Date().getTime();
+        
+
+        var arrayDate=[];
+
+        for(var i=0;i<8;i++){
+            var Time = time-i*86400000;
+            var date = new Date(Time);
+            date=date.toDateString()
+            arrayDate=arrayDate.concat(<option className="text-dark" value={date}>{date}</option> )
+        }
+
       return (
 
 
@@ -36,12 +53,18 @@ class HomeProfile extends Component {
                                         {arraySupervisor}
                                     </select>
                                 </div>
+                                <div class="form-group  ">
+                                    <label class=" text-white" for="inlineFormCustomSelectDate">Date</label>
+                                    <select class="custom-select  mb-3" id="inlineFormCustomSelectDate">
+                                        {arrayDate}
+                                    </select>
+                                </div>
                           
                         
                         <div class="container">
                             
-                                    <button class="btn w-75 ml-4 text-white btn-primary " href="#"  role="button" name="newReport" onClick={this.Select} >         
-                                    <i class="fas fa-edit"></i> {'\u00A0'} New Report  
+                                    <button class="btn  shadow  text-white btn-primary " href="#"  role="button" name="newReport" onClick={this.Select} >         
+                                    <i class="fas fa-edit"></i> {'\u00A0'} Get Report  
 
                                     </button>  
                                
@@ -64,7 +87,7 @@ class HomeProfile extends Component {
   };
  const mapDispatchToProps = dispatch => {
     return {
-        onSelectReport: (value,name) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name})
+        onSelectReport: (value,name,date) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name,date:date})
     };
 };
   export default connect(mapStateToProps,mapDispatchToProps)(HomeProfile);

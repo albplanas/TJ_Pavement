@@ -9,26 +9,26 @@ class Sign_Print extends Component {
     constructor(props) {
         super(props);
         this.state={
-
+            signaturePad    :undefined,
+          
         }
-        this.Hover=this.Hover.bind(this)
-        
+     
+        this.change=this.change.bind(this)
     }
-
-    Hover(e){
-        console.log(e.clientX)
-        
-        
+    change(){
+        this.props.checkSign(this.state.signaturePad );
+       
     }
   
 
      componentDidMount(){
-
+           
         var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
             backgroundColor: 'rgba(255, 255, 255, 0)',
             penColor: 'rgb(0, 0, 0)'
           });
           
+
         
           var cancelButton = document.getElementById('clear');
           
@@ -46,15 +46,21 @@ class Sign_Print extends Component {
         
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas();
+        
+        this.props.checkSign(signaturePad );
 
+        this.setState({signaturePad:signaturePad});
+        
         }
 
      render(){
+        
+        
 
         return (
             <div>
               
-              <canvas id="signature-pad"   class="signature-pad border border-dark shadow"  >
+              <canvas id="signature-pad"   class="signature-pad border border-dark shadow"  onMouseLeave ={this.change}>
               </canvas>
               <div class="btn-group ml-3" role="group" aria-label="Basic example">
                 <button id="clear" type="button" class="btn btn-secondary text-warning">Clear</button>

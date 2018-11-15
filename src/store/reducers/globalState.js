@@ -3,7 +3,9 @@ import * as actionTypes from '../actions';
 const initialState = {
 
     login: false,
-    driver:false,
+    supervisorSelect:'',
+    dateSelect:'',
+
     newReport:false,
     Supervisor:["Adrian","Primo"],
     ProjectSelect:0,
@@ -29,15 +31,15 @@ const initialState = {
                     
     Employees:[{
                     name:"Adrian",
-                    Categories:[]
+                    Hours:[]
                 },{
                     name:"Primo",
-                    Categories:[]
+                    Hours:[]
                 },{
                     name:"Rober",
-                    Categories:[]
+                    Hours:[]
                 }],
-    WholeList:["Rafael","Rublio","etc"]
+    WholeList:["Adrian","Primo","Rober","Rafael","Rublio","etc"]
 }
 
 const reducer = (state = initialState, action) => {
@@ -51,7 +53,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.OPENREPORT:
                         return {
                             ...state,
-                            [action.name]:action.value,
+                            supervisorSelect:action.name,
+                            dateSelect:action.date,
+                            newReport:action.value
+
                         }  
         case actionTypes.DELETEWORKER:
                         return {
