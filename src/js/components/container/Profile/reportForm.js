@@ -128,11 +128,11 @@ Check_in_doneList(name){
     
      //Employee
       var arrayEmployee= this.state.Employees.map((elem,index)=>{
-      var  check=this.Check_in_doneList(elem.name)? "col-7 Elem shadow border border-success":"col-7 Elem shadow border border-danger"
+      var  check=this.Check_in_doneList(elem.name)? "col-5 mr-5 Elem shadow border border-success":"col-5 mr-5 Elem shadow border border-danger"
         return (
             <li className="ListElem row " >
                 <div className={check}  id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" >{elem.name}</h6></div>
-               <div className="col-3 "> <button className=" btn btn-dark " name={index+''}  onClick={this.delete} ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt"/></button></div>
+               <div className="col-3 "> <button className=" btn btn-dark " name={index+''} style={{maxWidth:"40px"}}  onClick={this.delete} ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt"/></button></div>
               </li>
           )
       })
@@ -147,13 +147,19 @@ Check_in_doneList(name){
         //WholeList
           
         var arrayWholeList= this.props.WholeList.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
-
+        
+        //Date
+        var time = new Date().getTime();
+       
+        var date = new Date(time);
+       date=date.toDateString()
+        console.log(date)
 
       return this.state.selectEmployee !== "" ? <EmployeeInfo info={this.state} cancel={this.unSelectEmployee} update={this.UpdateForm} projectSet={this.props.Project}/> :(
                                                       <div id ="newReport">
                                                         
-                                                            <h3 className="col-auto text-dark ml-3 mb-5 mt-2"><u>Attendees Report</u></h3>
-                                                          
+                                                            <h3 className="col-auto text-dark ml-3 mb-1 mt-2"><u>Attendees Report</u></h3>
+                                                            <h6 className="col-auto text-dark ml-3 mb-5 ">{date+''}</h6>
                                                             
                                                             <button type="button" class="btn border-danger text-danger rounded-circle Close-btn"  aria-label="Close" onClick={this.cancel}>
                                                                 <span aria-hidden="true" onClick={this.cancel} >&times;</span>
@@ -172,11 +178,11 @@ Check_in_doneList(name){
                                                                 <ul> 
                                                                     <li className="ListElem row " >
                                                                       
-                                                                            <select class=" col-7 Elem shadow border border-primary custom-select  mb-3" id="addWorker" >
+                                                                            <select class=" col-5 Elem shadow border border-primary custom-select mr-5 mb-3" id="addWorker" >
                                                                                             {arrayWholeList}
                                                                             </select>
                                                                       
-                                                                      <div className="col-3 "> <button className=" btn btn-primary "  onClick={this.add} ><i onClick={this.add} class="fas fa-plus"></i></button></div>
+                                                                      <div className="col-3 "> <button className=" btn btn-primary " style={{maxWidth:"40px"}}  onClick={this.add} ><i onClick={this.add} class="fas fa-plus"></i></button></div>
                                                                     </li>
                                                                     <hr className="col-7" />
                                                                       {arrayEmployee}
