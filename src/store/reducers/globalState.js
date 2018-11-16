@@ -1,8 +1,8 @@
 import * as actionTypes from '../actions';
 
-const CatList=["Laborer Common/General","Laborer Pipelayers","Labored Concrete Finish","Asphalt Shoveler",
-                "Operator-bachoe/Excavator","Operator-Bobcat","Operator-Bulldozer","Operator-Concrete Finishing Machine",
-               "Operator-Grade/Blade","Operator-Loader","Operator-Roller","Operator-Milling machine","Operator-Paver","Truck Driver-Dump"
+const CatList=["Laborer Common/ General","Laborer Pipelayers","Labored Concrete Finish","Asphalt Shoveler",
+                "Operator bachoe/ Excavator","Operator Bobcat","Operator Bulldozer","Operator Concrete Finishing Machine",
+               "Operator Grade/ Blade","Operator Loader","Operator Roller","Operator Milling machine","Operator Paver","Truck Driver Dump"
                 ]
                
 
@@ -23,7 +23,7 @@ const initialState = {
                 Categories:CatList    
             },{
                 name:"Citywide Storm Repair-M0130",
-                Categories:["Laborer Common/General","Laborer-Power Tool Operator","Operator-Bulldozer","Operator-Bachoe Loader","Operator-Roller","Operator-Asphalt Paver","Truck Driver-Dump"]
+                Categories:["Laborer Common/ General","Laborer Power Tool Operator","Operator Bulldozer","Operator Bachoe Loader","Operator Roller","Operator Asphalt Paver","Truck Driver Dump"]
                     },{
                 name:"North Cruise Blvd-Phase IB"  ,
                 Categories:CatList

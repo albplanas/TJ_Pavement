@@ -124,7 +124,7 @@ Check_in_doneList(name){
     
      //Employee
       var arrayEmployee= this.state.Employees.map((elem,index)=>{
-      var  check=this.Check_in_doneList(elem.name)? "col-5 mr-3 Elem shadow border border-success":"col-5 mr-3 Elem shadow border border-danger"
+      var  check=this.Check_in_doneList(elem.name)? "col-7 mr-3 Elem shadow border border-success":"col-7 mr-3 Elem shadow border border-danger"
         return (
             <li className="ListElem row "  >
                 <div className={check} style={{overflow:"hidden",maxHeight:"38px" }} id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" style={{width:"300px"}} >{elem.name}</h6></div>
@@ -157,30 +157,30 @@ Check_in_doneList(name){
                                                               </button>
 
                                                            <div className="container">   
-                                                              <div id="display" class="form-group row ml-5">
+                                                              <div id="display" class="form-group row ">
                                                                 <label class="col-3 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
                                                                 <select class="col-6 custom-select mb-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
                                                                   {arrayProject}
                                                                 </select>
                                                               </div>
                                                             
-                                                              <div class="col-auto ml-5 my-1">
+                                                              <div class="col-auto  my-1">
                                                                 <label class="mr-sm-3" for="inlineFormCustomSelect">Employees</label>
                                                                 <ul> 
                                                                     <li className="ListElem row " >
                                                                       
-                                                                            <select class=" col-5 Elem shadow border border-primary custom-select mr-3 mb-3" id="addWorker" >
+                                                                            <select class=" col-7 Elem shadow border border-primary custom-select mr-3 mb-3" id="addWorker" >
                                                                                             {arrayWholeList}
                                                                             </select>
                                                                       
                                                                       <div className="col-3 "> <button className=" btn btn-primary " style={{width:"40px"}}  onClick={this.add} ><i onClick={this.add} class="fas fa-plus"></i></button></div>
                                                                     </li>
-                                                                    <hr className="col-7" />
+                                                                    <hr className="col-10" />
                                                                       {arrayEmployee}
                                                                 </ul>
                                                               </div>
 
-                                                               <button type="button" class="btn float-right btn-success btn-circle btn-xl"><i class="fa fa-paper-plane"></i></button>
+                                                               <button type="button" class="btn float-right btn-success btn-circle btn-xl mt-5 mr-2"><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
                                                         
                                                       </div>

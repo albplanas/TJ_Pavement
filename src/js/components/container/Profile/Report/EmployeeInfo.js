@@ -134,7 +134,7 @@ class EmployeeInfo extends Component {
                           <div class="form-group row "> 
                             <label class="control-label col-5" for="name">{elem[0]}</label>
                             <input class="form-control col-3 mr-1" style={{width:"60px" ,height:"38px"}}  id={this.state.EmployeeReport[this.state.select].name+"_"+index} name={index+''} type="number" onChange={this.change} value={elem[1]}/>
-                            <button class="btn btn-dark " style={{width:"40px"}} id={"del"+index+""} type="button" onClick={this.delete}><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button class="btn btn-dark " style={{height:"38px", width:"40px"}} id={"del"+index+""} type="button" onClick={this.delete}><i class="fa fa-trash" aria-hidden="true"></i></button>
                           </div>
                              
                             
@@ -156,12 +156,12 @@ class EmployeeInfo extends Component {
             <hr/>
             <div className="container">
 
-                  <div class="col-auto ml-5 my-1">
+                  <div class="col-auto ml-1 my-1">
                                                                 <label class="mr-sm-3" for="inlineFormCustomSelect">Employees</label>
                                                                 <ul> 
                                                                     <li className="ListElem row " >
                                                                       
-                                                                            <select class=" col-5 Elem shadow border border-primary custom-select mr-3 mb-3" id="addCategories" >
+                                                                            <select class=" col-8 Elem shadow border border-primary custom-select mr-3 mb-3" id="addCategories" >
                                                                                             {arrayCategories}
                                                                             </select>
                                                                       
