@@ -3,7 +3,10 @@
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
-const mysql  = require('mysql');
+
+var mysql      = require('mysql');
+
+
 const routes      = require('./routes.js');
 const auth        = require('./auth.js');
 
@@ -19,19 +22,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 /************************************************ */
 
-/*
-var conSQL = mysql.createConnection({
-  host: "https://www.godaddy.com/",
-  user: "AdminJVA",
-  password: "123qwe"
+
+var connection = mysql.createConnection({
+  host     : 'example.org',
+  user     : 'bob',
+  password : 'secret'
 });
-	
- 
-conSQL.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+
+connection.connect();
+
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].solution);
 });
-*/
+
+connection.end();
+
 
 /******************************** */
 var Profile = new mongoose.Schema(
