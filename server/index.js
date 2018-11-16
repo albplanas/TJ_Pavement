@@ -21,7 +21,7 @@ const database  = "mongodb://Adrian:fresh_one1@ds231961.mlab.com:31961/fresh_one
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 /************************************************ */
-
+/*
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -38,7 +38,7 @@ connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 });
 
 connection.end();
-
+*/
 
 /******************************** */
 var Profile = new mongoose.Schema(
