@@ -22,11 +22,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 /************************************************ */
 
-
+var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'example.org',
-  user     : 'bob',
-  password : 'secret'
+  host     : 'localhost',
+  user     : 'me',
+  password : 'secret',
+  database : 'my_db'
 });
 
 connection.connect();
