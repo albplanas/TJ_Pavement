@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 /************************************************ */
 
-/*
+
 var connection = mysql.createConnection({
   host     : 'example.org',
   user     : 'bob',
@@ -37,7 +37,7 @@ connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 });
 
 connection.end();
-*/
+
 
 /******************************** */
 var Profile = new mongoose.Schema(
