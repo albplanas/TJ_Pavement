@@ -3,7 +3,7 @@ import React,{Component} from "react";
 import Sign_Print from "./Sign_Print"
 
 
-const  { validHours}   = require('./../Validation');
+const  {checkTheList, validHours}   = require('./../Validation');
 
 
 
@@ -40,14 +40,19 @@ class EmployeeInfo extends Component {
      
 }
      add(){
+    var   name=document.getElementById("addCategories").value;
+    var   nameList=this.state.EmployeeReport[this.state.select].Hours.map(elem=>elem[0])
+      if(!checkTheList(name,nameList)){
 
-       var array=[document.getElementById("addCategories").value,0];
+        var array=[name,0];
       
-      var list = this.state.EmployeeReport;
-      
-     list[this.state.select].Hours.push(array)
-  
-      this.setState({EmployeeReport:list})
+        var list = this.state.EmployeeReport;
+        
+       list[this.state.select].Hours.push(array)
+    
+        this.setState({EmployeeReport:list})
+      }
+       
       
 }
       CheckSignature(x){
@@ -61,10 +66,10 @@ class EmployeeInfo extends Component {
       var hours=this.state.EmployeeReport[this.state.select].Hours.map(elem=>elem[1])
       //Check Zone
 
-      if(this.state.signCheck===false ){
+      /*if(this.state.signCheck===false ){
         alert("Sign")
-      }
-      else if(document.getElementById("customCheck1").checked===false){
+      }*/
+       if(document.getElementById("customCheck1").checked===false){
         alert("Check box")
       }
       else if(validHours(hours)===false){

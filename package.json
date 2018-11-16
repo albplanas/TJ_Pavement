@@ -41,13 +41,15 @@
     "ify-loader": "^1.1.0",
     "mongodb": "^3.1.8",
     "mongoose": "^5.3.4",
+    "mssql": "^4.2.3",
     "mysql": "^2.16.0",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "signature_pad": "^3.0.0-beta.3"
+    "signature_pad": "^3.0.0-beta.3",
+    "tedious": "^3.0.1"
   },
   "jest": {
     "transform": {}
