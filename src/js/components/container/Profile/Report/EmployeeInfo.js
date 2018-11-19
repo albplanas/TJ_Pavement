@@ -14,15 +14,15 @@ class EmployeeInfo extends Component {
          EmployeeReport:[],
          select:"",
          projSelect:"",
-         signCheck:false
+         signCheck:false,
+         sms:''
         }
         
         this.Update=this.Update.bind(this);
         this.change=this.change.bind(this);
         this.add    =this.add.bind(this);
         this.delete    =this.delete.bind(this);
-        this.CheckSignature=this.CheckSignature.bind(this)
-       
+        this.DataSign=this.DataSign.bind(this)
      }
      delete(e){
 
@@ -55,30 +55,42 @@ class EmployeeInfo extends Component {
        
       
 }
-      CheckSignature(x){
-          
-          this.setState({
-            signCheck:!x.isEmpty()
-          })
+
+      DataSign(data){
+        console.log("datus",data)
+        var  eList = this.state.EmployeeReport
+        eList[this.state.select].Signature = data
+        this.setState({ EmployeeReport:eList})
       }
+
+
+
      Update(){
 
       var hours=this.state.EmployeeReport[this.state.select].Hours.map(elem=>elem[1])
-      //Check Zone
-
-      /*if(this.state.signCheck===false ){
-        alert("Sign")
-      }*/
-       if(document.getElementById("customCheck1").checked===false){
-        alert("Check box")
+    
+        if(this.state.EmployeeReport[this.state.select].Signature.length===0 || this.state.EmployeeReport[this.state.select].Signature[0].points.length<3 ){
+          console.log("Im there")  
+          var sms="The employee' Sign wasn't provided";
+            this.setState({sms:sms})
+            $('#AlertModal').modal('show')
+      }
+       else if(document.getElementById("customCheck1").checked===false){
+        var sms="Please,read and mark the box below"
+        this.setState({sms:sms})
+        $('#AlertModal').modal('show')
       }
       else if(validHours(hours)===false){
-        alert("Hours")
+        var sms = "Please,cheack the hours report again, something is wrong there"  
+        this.setState({sms:sms})
+        $('#AlertModal').modal('show')
       }
       else{
+        var sms="";
+        this.setState({sms:sms})
         this.props.update(this.state.EmployeeReport,this.state.EmployeeReport[this.state.select].name)
       }
-
+     
          
      }
 
@@ -174,20 +186,40 @@ class EmployeeInfo extends Component {
 
             <hr/>
             
-            <Sign_Print checkSign={this.CheckSignature}/>
+            <Sign_Print DataSign={this.DataSign} data={this.state.EmployeeReport[this.state.select].Signature}/>
             <div class="custom-control custom-checkbox mt-3 mb-3">
               <input type="checkbox" class="custom-control-input" id="customCheck1"/>
               <label class="custom-control-label" for="customCheck1">By signing ths Daily Report Im agreement that the hours reported are correct and that i did not suffer any Injury/Accident or did not witness any Injury/Accident from other employee </label>
             </div>
                   <div class="form-group">
-                    <button class="btn btn-success " name="submit" type="submit" onClick={this.Update}>Done</button>
+                
+                    <button class="btn btn-success " name="submit" type="submit" onClick={this.Update} >Done</button>
+                    
                   </div>
+                  <Alert sms={this.state.sms}/>
                   </div>   
         </div>
       );
     }
   }
   
-
+  function Alert(props){
+    
+    return props.sms===""? (<div/>):
+     (
+          <div class="modal fade" id="AlertModal" tabindex="-1" role="dialog" aria-labelledby="AlertModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                  <div class="w-100 alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong class="w-80">ALMOST DONE!!!</strong>  {props.sms}
+                    <button class="w-20" style={{width:"40px"}} type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  </div>
+                </div>
+          </div>
+    )
+}
 
   export default EmployeeInfo;

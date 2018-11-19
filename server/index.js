@@ -28,7 +28,7 @@ const config = {
       rowCollectionOnRequestCompletion: true,
       encrypt: true
     }
-    // If you're on Windows Azure, you will need this:
+  
    
   };
 

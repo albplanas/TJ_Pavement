@@ -18,11 +18,14 @@ class reportForm extends Component {
           Employees:[],
           projSelect:"",
           doneList:[],
+          deleteId:''
         }
         
  
         this.SelectEmployee=this.SelectEmployee.bind(this);
         this.cancel=this.cancel.bind(this)
+        this.Pass=this.Pass.bind(this);
+    
         this.delete=this.delete.bind(this)
         this.add=this.add.bind(this);
         this.unSelectEmployee=this.unSelectEmployee.bind(this);
@@ -48,15 +51,16 @@ class reportForm extends Component {
          
          this.props.onSelectReport(false,this.props.supervisorSelect,this.props.date)
      }
-
+     
 
      delete(e){
+
              var index= e.target.name !==undefined? e.target.name +'': e.target.parentNode.id;
-       
-            var list = this.state.Employees.filter((elem,i)=> i+''!==index)
-           
-            this.props.onDeleteWorker(list);
-            this.setState({Employees:list})
+
+                      this.setState({deleteId:index})
+                    
+          
+        
      }
 
      add(){
@@ -65,7 +69,7 @@ class reportForm extends Component {
       var nameList= this.state.Employees.map(elem=>elem.name);
      
       if(!checkTheList(name,nameList)){
-        var list = this.state.Employees.concat({name:name, Hours:[]})
+        var list = this.state.Employees.concat({name:name, Hours:[],Signature:[]})
      
         this.props.onDeleteWorker(list)
         this.setState({Employees:list})
@@ -90,6 +94,20 @@ Check_in_doneList(name){
 
   }
   return false
+}
+
+Pass(){
+  var index= this.state.deleteId;
+  var list = this.state.Employees   
+ 
+       if(index!==""){
+              var list =  list.filter((elem,i)=> i+''!==index)
+      
+              this.props.onDeleteWorker(list);
+             
+       }
+       this.setState({Employees:list,deleteId:""})
+    
 }
   componentWillMount() {
 
@@ -128,7 +146,7 @@ Check_in_doneList(name){
         return (
             <li className="ListElem row "  >
                 <div className={check} style={{overflow:"hidden",maxHeight:"38px" }} id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" style={{width:"300px"}} >{elem.name}</h6></div>
-               <div className="col-3 "> <button className=" btn btn-dark " name={index+''} style={{width:"40px"}}  onClick={this.delete} ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt"/></button></div>
+               <div className="col-3 "> <button className=" btn btn-dark " name={index+''} style={{width:"40px"}}  onClick={this.delete} data-toggle="modal" data-target="#exampleModalCenter" ><i name={index+''} id={index+''} onClick={this.delete} class="fas fa-trash-alt" /></button></div>
               </li>
           )
       })
@@ -178,16 +196,40 @@ Check_in_doneList(name){
                                                                     <hr className="col-10" />
                                                                       {arrayEmployee}
                                                                 </ul>
+                                                               
                                                               </div>
 
-                                                               <button type="button" class="btn float-right btn-success btn-circle btn-xl mt-5 mr-2"><i class="fa fa-paper-plane"></i></button>
+                                                               <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2"><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
-                                                        
+                                                             <Alert Pass={this.Pass}/>
                                                       </div>
       );
     }
   }
   
+  function Alert(props){
+      return (
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="w-100" id="exampleModalLongTitle">Make sure</h5>
+                        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Do you really want to delete this employee ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={props.Pass}>Delete</button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+      )
+  }
   const mapStateToProps = state => {
     return {
         Employees:state.globalState.Employees,

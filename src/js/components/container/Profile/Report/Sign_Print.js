@@ -10,26 +10,41 @@ class Sign_Print extends Component {
         super(props);
         this.state={
             signaturePad    :undefined,
-          
+            data:[]
         }
      
-        this.change=this.change.bind(this)
-    }
-    change(){
-        this.props.checkSign(this.state.signaturePad );
+        this.change=this.change.bind(this);
        
     }
-  
 
+    change(){
+        
+      
+     
+        this.setState({
+            data: this.state.signaturePad.toData()
+        })
+        this.props.DataSign(this.state.signaturePad.toData());
+
+    }
+  
+     componentWillMount(){
+        this.setState({
+          data:[{color:"rgb(0,0,0)",points:[{time: 1542636683829, x: 170.5, y: 91.5},{time: 1542636683829, x: 120.5, y: 91.5}]}]
+        })
+     }
      componentDidMount(){
            
         var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
             backgroundColor: 'rgba(255, 255, 255, 0)',
             penColor: 'rgb(0, 0, 0)'
           });
-          
-
         
+         
+          
+        
+
+
           var cancelButton = document.getElementById('clear');
           
           cancelButton.addEventListener('click', function (event) {
@@ -47,7 +62,7 @@ class Sign_Print extends Component {
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas();
         
-        this.props.checkSign(signaturePad );
+   
 
         this.setState({signaturePad:signaturePad});
         
@@ -56,11 +71,10 @@ class Sign_Print extends Component {
      render(){
         
         
-
         return (
             <div>
               
-              <canvas id="signature-pad"   class="signature-pad border border-dark shadow"  onMouseLeave ={this.change}>
+              <canvas id="signature-pad"   class="signature-pad border border-dark shadow"  onMouseMove ={this.change} onTouchMove={this.change} >
               </canvas>
               <div class="btn-group ml-3" role="group" aria-label="Basic example">
                 <button id="clear" type="button" class="btn btn-secondary text-warning">Clear</button>
