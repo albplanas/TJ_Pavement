@@ -14,7 +14,18 @@ class HomeProfile extends Component {
      Select(){
             var Supervisor=document.getElementById("inlineFormCustomSelectSuperv").value;
             var date=document.getElementById("inlineFormCustomSelectDate").value;
-            this.props.onSelectReport(true,Supervisor,date)
+
+            //date
+            var dayNow=Date.now();
+            var dayBefore=new Date(date);
+            var dayBefore=Date.parse(dayBefore);
+            
+            var dayAgo=parseInt((dayNow-dayBefore)/86400000)
+            
+            var newV = dayAgo===0? true :false
+            this.props.onSelectReport(true,newV,Supervisor,date)
+            
+           
      }
 
 
@@ -87,7 +98,7 @@ class HomeProfile extends Component {
   };
  const mapDispatchToProps = dispatch => {
     return {
-        onSelectReport: (value,name,date) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name,date:date})
+        onSelectReport: (value,newValue,name,date) => dispatch({type: actionTypes.OPENREPORT , value:value, newValue:newValue,name:name,date:date})
     };
 };
   export default connect(mapStateToProps,mapDispatchToProps)(HomeProfile);

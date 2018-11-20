@@ -3,17 +3,22 @@ import { connect } from 'react-redux';
 
 import HomeProfile from "./HomeProfile";
 import ReportForm from  "./reportForm";
+import OldProjectReport from  "./OldProjectReport";
 
 class Profile extends Component {
 
-    render() {      
+    render() { 
+        
+
       return (
-        this.props.newReport ===true ? <ReportForm/> : <HomeProfile/>)}
+        this.props.getReport ===true ?     this.props.newReport===true ? <ReportForm/> : <OldProjectReport /> : <HomeProfile/>)}
   }
   
   const mapStateToProps = state => {
     return {
-        newReport:state.globalState.newReport
+        getReport :state.globalState.getReport,
+        newReport :state.globalState.newReport,
+        date      :state.globalState.dateSelect
     };
   };
 

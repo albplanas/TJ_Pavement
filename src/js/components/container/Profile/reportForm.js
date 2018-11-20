@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from './../../../../store/actions';
 import EmployeeInfo from './Report/EmployeeInfo';
 
+import axios from 'axios';
 
 const  { checkTheList,signatureCheck}   = require('./Validation');
 
@@ -25,12 +26,27 @@ class reportForm extends Component {
         this.SelectEmployee=this.SelectEmployee.bind(this);
         this.cancel=this.cancel.bind(this)
         this.Pass=this.Pass.bind(this);
-    
         this.delete=this.delete.bind(this)
         this.add=this.add.bind(this);
         this.unSelectEmployee=this.unSelectEmployee.bind(this);
         this.UpdateForm=this.UpdateForm.bind(this);
         this.Check_in_doneList=this.Check_in_doneList.bind(this)
+        this.Send=this.Send.bind(this)
+     }
+     Send(){
+       //Update Local database
+      axios.get('/oldReports')
+      .then((response)=> {
+          console.log(response.data);
+          //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
+          
+      })
+      axios.get('/idProjectReference')
+      .then((response)=> {
+          console.log(response.data);
+          //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
+          
+      })
      }
      unSelectEmployee(){
       
@@ -138,7 +154,6 @@ Pass(){
 
     render() {
 
-      
     
      //Employee
       var arrayEmployee= this.state.Employees.map((elem,index)=>{
@@ -165,15 +180,13 @@ Pass(){
 
       return this.state.selectEmployee !== "" ? <EmployeeInfo info={this.state} cancel={this.unSelectEmployee} update={this.UpdateForm} projectSet={this.props.Project}/> :(
                                                       <div id ="newReport">
-                                                        
+                                                        <div className="text-center">
                                                             <h3 className="col-auto text-dark ml-3 mb-1 mt-2"><u>Attendees Report</u></h3>
                                                             <h6 className="col-auto text-dark ml-3 mb-1 ">{this.props.supervisorSelect+''}</h6>
                                                             <h6 className="col-auto text-dark ml-3 mb-5 ">{this.props.date+''}</h6>
-                                                            
-                                                            <button type="button" class="btn border-danger text-danger rounded-circle Close-btn"  aria-label="Close" onClick={this.cancel}>
-                                                                <span aria-hidden="true" onClick={this.cancel} >&times;</span>
-                                                              </button>
-
+                                                          </div>
+                                                            <a onClick={this.cancel}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"40px",left:"40px"}}></i></a>
+                                                            <hr/>
                                                            <div className="container">   
                                                               <div id="display" class="form-group row ">
                                                                 <label class="col-3 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
@@ -182,7 +195,7 @@ Pass(){
                                                                 </select>
                                                               </div>
                                                             
-                                                              <div class="col-auto  my-1">
+                                                              <div class="col-auto  ">
                                                                 <label class="mr-sm-3" for="inlineFormCustomSelect">Employees</label>
                                                                 <ul> 
                                                                     <li className="ListElem row " >
@@ -199,7 +212,7 @@ Pass(){
                                                                
                                                               </div>
 
-                                                               <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2"><i class="fa fa-paper-plane"></i></button>
+                                                               <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2" onClick={this.Send}><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
                                                              <Alert Pass={this.Pass}/>
                                                       </div>
@@ -244,7 +257,7 @@ Pass(){
   };
   const mapDispatchToProps = dispatch => {
     return {
-      onSelectReport: (value,name,date) => dispatch({type: actionTypes.OPENREPORT , value:value,name:name,date:date}),
+      onSelectReport: (value, newValue,name,date) => dispatch({type: actionTypes.OPENREPORT , newValue:newValue, value:value,name:name,date:date}),
         onDeleteWorker: (list) => dispatch({type: actionTypes.DELETEWORKER , list:list}),
         onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value})
     };

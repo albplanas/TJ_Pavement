@@ -30,9 +30,9 @@ class EmployeeInfo extends Component {
       var index = e.target.id.slice(3,e.target.id.length)-0;
       var list = this.state.EmployeeReport;
       if(index!==undefined){
-        console.log(index)
+       
         list[this.state.select].Hours=list[this.state.select].Hours.filter((elem,i) => i!==index)
-        console.log(list)
+        
         this.setState({EmployeeReport:list})
       }
      
@@ -57,7 +57,7 @@ class EmployeeInfo extends Component {
 }
 
       DataSign(data){
-        console.log("datus",data)
+        
         var  eList = this.state.EmployeeReport
         eList[this.state.select].Signature = data
         this.setState({ EmployeeReport:eList})
@@ -70,7 +70,7 @@ class EmployeeInfo extends Component {
       var hours=this.state.EmployeeReport[this.state.select].Hours.map(elem=>elem[1])
     
         if(this.state.EmployeeReport[this.state.select].Signature.length===0 || this.state.EmployeeReport[this.state.select].Signature[0].points.length<3 ){
-          console.log("Im there")  
+     
           var sms="The employee' Sign wasn't provided";
             this.setState({sms:sms})
             $('#AlertModal').modal('show')
@@ -148,9 +148,6 @@ class EmployeeInfo extends Component {
                             <input class="form-control col-3 mr-1" style={{width:"60px" ,height:"38px"}}  id={this.state.EmployeeReport[this.state.select].name+"_"+index} name={index+''} type="number" onChange={this.change} value={elem[1]}/>
                             <button class="btn btn-dark " style={{height:"38px", width:"40px"}} id={"del"+index+""} type="button" onClick={this.delete}><i class="fa fa-trash" aria-hidden="true"></i></button>
                           </div>
-                             
-                            
-                          
                         )})
 
 
@@ -158,11 +155,9 @@ class EmployeeInfo extends Component {
       return (
         <div  id ="EmployeeReport" >
          <div className="container">
-         <h4 className="col-auto text-dark  mb-5 mt-2 "> <u>{this.state.EmployeeReport[this.state.select].name}</u></h4>
-          <button type="button" class="btn border-danger text-danger rounded-circle Close-btn" id="close2" aria-label="Close" onClick={this.props.cancel}>
-            <span aria-hidden="true" onClick={this.props.cancel} >&times;</span>
-          </button>
-        
+         <h4 className="col-auto text-dark text-center  mb-5 mt-2 "> <u>{this.state.EmployeeReport[this.state.select].name}</u></h4>
+         
+          <a  onClick={this.props.cancel}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"20px",left:"40px"}}></i></a>
         
          </div>
             <hr/>
