@@ -181,7 +181,7 @@ Pass(){
       return this.state.selectEmployee !== "" ? <EmployeeInfo info={this.state} cancel={this.unSelectEmployee} update={this.UpdateForm} projectSet={this.props.Project}/> :(
                                                       <div id ="newReport">
                                                         <div className="text-center">
-                                                            <h3 className="col-auto text-dark ml-3 mb-1 mt-2"><u>Attendees Report</u></h3>
+                                                            <h5 className="col-auto text-dark ml-3 mb-1 mt-2"><u>Attendees Report</u></h5>
                                                             <h6 className="col-auto text-dark ml-3 mb-1 ">{this.props.supervisorSelect+''}</h6>
                                                             <h6 className="col-auto text-dark ml-3 mb-5 ">{this.props.date+''}</h6>
                                                           </div>

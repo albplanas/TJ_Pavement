@@ -81,7 +81,7 @@ class EmployeeInfo extends Component {
         $('#AlertModal').modal('show')
       }
       else if(validHours(hours)===false){
-        var sms = "Please,cheack the hours report again, something is wrong there"  
+        var sms = "Please,check the hour's report again, something is wrong there"  
         this.setState({sms:sms})
         $('#AlertModal').modal('show')
       }
@@ -155,7 +155,7 @@ class EmployeeInfo extends Component {
       return (
         <div  id ="EmployeeReport" >
          <div className="container">
-         <h4 className="col-auto text-dark text-center  mb-5 mt-2 "> <u>{this.state.EmployeeReport[this.state.select].name}</u></h4>
+         <h5 className="col-auto text-dark text-center  ml-5 mb-5 mt-2 "> <u>{this.state.EmployeeReport[this.state.select].name}</u></h5>
          
           <a  onClick={this.props.cancel}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"20px",left:"40px"}}></i></a>
         
@@ -184,7 +184,7 @@ class EmployeeInfo extends Component {
             <Sign_Print DataSign={this.DataSign} data={this.state.EmployeeReport[this.state.select].Signature}/>
             <div class="custom-control custom-checkbox mt-3 mb-3">
               <input type="checkbox" class="custom-control-input" id="customCheck1"/>
-              <label class="custom-control-label" for="customCheck1">By signing ths Daily Report Im agreement that the hours reported are correct and that i did not suffer any Injury/Accident or did not witness any Injury/Accident from other employee </label>
+              <label class="custom-control-label" for="customCheck1">By signing ths Daily Report Im agreement that the hours reported are correct and that I did not suffer any Injury/Accident or did not witness any Injury/Accident from other employee. </label>
             </div>
                   <div class="form-group">
                 
