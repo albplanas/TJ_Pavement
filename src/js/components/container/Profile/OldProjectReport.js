@@ -32,14 +32,28 @@ class OldProjectReport extends Component {
                     }
                     return undefined
            }
-    categoriesById(id) {
+    categoriesById(idC,idL) {
+        console.log(idC,idL)
+        if(idC===null || idC==='null'){
+            console.log("entre")
+            for (var j=0;j<this.props.IdLabor.length;j++){
+                if(this.props.IdLabor[j][0].toString()===idL.toString()){
+                    return this.props.IdLabor[j][1] 
+                }
+                            
+            }
+            return "undefined"  
+        }
+        else{
             for (var j=0;j<this.props.IdCategories.length;j++){
-                if(this.props.IdCategories[j][1].toString()===id.toString()){
+                if(this.props.IdCategories[j][1].toString()===idC.toString()){
                     return this.props.IdCategories[j][0] 
                 }
                             
             }
             return "undefined"
+        }
+          
     }
 
  SelectOldProject(e){
@@ -95,16 +109,16 @@ class OldProjectReport extends Component {
            var last = new Date(this.props.date);
            var Last=last.toISOString().slice(0,10);
            var reportName=this.state.ProjectsName.filter(elem => this.state.selectReport.toString()===elem.id.toString())
-            console.log(reportName)
+            
               var finalArray = this.props.OldReportsList.filter(elem=>elem[0].toString()===Last.toString() && elem[4].toString()===this.state.selectReport.toString())
               var conversionArray =[];
-
+            console.log(finalArray)
 
               for (var i=0;i<finalArray.length;i++){
 
                         var index =-1;
                         var name=this.NameById(finalArray[i][1],this.props.IdEmployee);
-                        var ctg=this.categoriesById(finalArray[i][3]);
+                        var ctg=this.categoriesById(finalArray[i][3],finalArray[i][2]);
                         var hr=finalArray[i][5] ;
 
                         
@@ -126,7 +140,7 @@ class OldProjectReport extends Component {
        }
 
       return this.state.selectReport===""? ( <div className='container mt-5'>
-                                                    <a onClick={this.back}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"30px"}}></i></a>
+                                                    <a onClick={this.back}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"50px"}}></i></a>
                                                     <h5 className="text-center">Report by Project's title</h5>
                                                     <hr/>
                                                   <div class="list-group">
@@ -144,7 +158,8 @@ class OldProjectReport extends Component {
         Supervisor:state.globalState.Supervisor,
         OldReportsList:state.globalState.OldReportsList,
         IdCategories:state.globalState.IdCategories,
-        IdEmployee:state.globalState.IdEmployee
+        IdEmployee:state.globalState.IdEmployee,
+        IdLabor:state.globalState.IdLabor
     };
   };
 

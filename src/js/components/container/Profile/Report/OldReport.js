@@ -71,10 +71,10 @@ console.log(this.state.info)
               < main id="main-doc">
                       <section class="main-section" id="Introduction">
                       <a onClick={this.props.cancel}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"40px",left:"40px"}}></i></a>
-                        <header class="text-center"><h3><u>Assistance report</u></h3></header>
+                        <header class="text-center"><h5><u>Assistance report</u></h5></header>
                         <article>  
-                          <p class="text-center"><strong>{this.props.project}</strong></p>
-                          <p class="text-center"><strong>{this.props.date}</strong></p>
+                          <p class="text-center">{this.props.project}</p>
+                          <p class="text-center">{this.props.date}</p>
                         </article>
                       </section>
                       <hr className="bg-dark"/>

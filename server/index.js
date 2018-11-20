@@ -52,9 +52,27 @@ const config = {
       
     }
 });
-  
+
+app.get('/idLabor', function (req, res) {
+
+    
+  var connection = new Connection(config);
 
 
+  connection.on('connect', ()=> executeStatement());
+
+
+  function executeStatement() {
+
+    var sqlQuery_fullList = "SELECT DISTINCT idLabor , labor from tblLabor" 
+
+   var  request = new Request(sqlQuery_fullList, (err, rowCount,rows) =>{res.json({fullname: err?[err]:rows.map(elem=> [elem[0].value,elem[1].value])})});
+
+    connection.execSql(request);
+    
+    
+  }
+});
   app.get('/idProjectReference', function (req, res) {
 
     
