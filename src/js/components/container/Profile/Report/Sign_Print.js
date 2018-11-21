@@ -10,7 +10,8 @@ class Sign_Print extends Component {
         super(props);
         this.state={
             signaturePad    :undefined,
-            data:[]
+            data:[],
+            signPass:false
         }
      
         this.change=this.change.bind(this);
@@ -71,7 +72,7 @@ class Sign_Print extends Component {
      render(){
         
         
-        return (
+        return  (
             <div>
               
               <canvas id="signature-pad"   class="signature-pad border border-dark shadow"  onMouseMove ={this.change} onTouchMove={this.change} >
