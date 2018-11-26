@@ -24,7 +24,8 @@ class reportForm extends Component {
           signPass:false,
           hr:0,
           openhr:false,
-          catName:''
+          catName:'',
+         
         }
         
  
@@ -43,6 +44,12 @@ class reportForm extends Component {
         this.deleteCtg=this.deleteCtg.bind(this);
 
         this.DataSign=this.DataSign.bind(this);
+        this.SwitchSign=this.SwitchSign.bind(this)
+     }
+
+     SwitchSign(){
+    
+      this.setState({ signPass:!this.state.signPass})
      }
 
      DataSign(data){
@@ -55,13 +62,13 @@ class reportForm extends Component {
        //Update Local database
       axios.get('/oldReports')
       .then((response)=> {
-          console.log(response.data);
+          
           //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
           
       })
       axios.get('/idProjectReference')
       .then((response)=> {
-          console.log(response.data);
+      
           //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
           
       })
@@ -192,7 +199,7 @@ Pass(){
   PartII(hr){
     var id=this.state.selectEmployee;
     var name=this.state.catName;
-    console.log(name,id,"Part2")
+    
     if(id!==""  && hr>0 ){
       var array=[name,hr];
     
@@ -214,7 +221,7 @@ Pass(){
 
   //Update the list
  componentWillReceiveProps(nextProps) {
-    console.log("nextProps")
+ 
     if(nextProps.ProjectSelect!==this.state.projSelect){
          
 
@@ -240,21 +247,18 @@ Pass(){
 
    if(this.state.openhr===true){$('#exampleModalHours').modal('show')} 
 
-
-    console.log('mark1')
-    console.log(this.state.Employees)
      //Employee
-      var arrayEmployee= this.state.Employees.map((elem,index)=>{
+      var arrayEmployee=this.state.Employees.map((elem,index)=>{
 
 
-      var  check="col-11 Elem shadow border border-success";
-      console.log('mark2')
+      var  check="col-9 Elem shadow border border-success";
+ 
 
 
       var  JobList=elem.Hours.map((listed,j)=>{
               return (
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="mr-3" id={index+";"+j} onClick={this.deleteCtg}><i class="fas fa-trash-alt" style={{color:"red"}}/></span>
+                                <span className=" mr-3" id={index+";"+j} onClick={this.deleteCtg}><i class="fas fa-trash-alt" style={{color:"red"}}/></span>
                                   {listed[0]}
                                   <span class="badge badge-primary badge-pill float-right">{listed[1]}</span>
                 </li>
@@ -268,8 +272,8 @@ Pass(){
               
                 <div class="input-group mb-3 col-50">
                   <div class="input-group-prepend">
-                  <button className=" btn btn-white border border-danger shadow " name={index+''} style={{width:"40px",maxHeight:"38px"}}  onClick={this.delete}  ><i name={index+''} id={index+''} onClick={this.delete} style={{color:"red"}} class="fas fa-trash-alt" /></button>
-                  </div>
+                  {this.state.signPass?<div></div>: <button className=" btn btn-white border border-danger shadow " name={index+''} style={{width:"40px",maxHeight:"38px"}}  onClick={this.delete}  ><i name={index+''} id={index+''} onClick={this.delete} style={{color:"red"}} class="fas fa-trash-alt" /></button>
+                  }</div>
                   <div className={check} style={{overflow:"hidden",maxHeight:"38px" }} id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" style={{width:"300px"}} >{elem.name}</h6></div>
                 </div>
                 <div class="input-group mb-3  " >
@@ -284,7 +288,7 @@ Pass(){
                           {JobList}
 
 
-                         {!this.state.signPass?(<li className="list-group-item d-flex justify-content-between align-items-center mt-3" ><button className="btn w-90 text-success shadow border border-success btn-block">Signature up</button></li>):(<li className="list-group-item d-flex justify-content-between align-items-center mt-3">  <Sign_Print DataSign={this.DataSign} data={this.state.Employees[this.state.selectEmployee].Signature}/></li>) }
+                         {!this.state.signPass?(<li className="list-group-item d-flex justify-content-between align-items-center mt-3" ><button className="btn w-90 text-success shadow border border-success btn-block" onClick={this.SwitchSign}  >Signature up</button></li>):(<li className="list-group-item d-flex justify-content-between align-items-center mt-3">  <Sign_Print DataSign={this.DataSign} done={this.SwitchSign} data={this.state.Employees[this.state.selectEmployee].Signature}/></li>) }
                           
                         </ul>
               
@@ -305,8 +309,7 @@ Pass(){
         //WholeList
           
         var arrayWholeList= this.props.WholeList.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
-        console.log('mark3')
-        console.log(this.state.Employees)
+      
 
       return (
                                                       <div id ="newReport">
@@ -342,7 +345,7 @@ Pass(){
                                                                
                                                               </div>
 
-                                                               <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2" onClick={this.Send}><i class="fa fa-paper-plane"></i></button>
+                                                           <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2" onClick={this.Send}><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
                                                              <Alert Pass={this.Pass}/>
                                                             
@@ -374,15 +377,15 @@ Pass(){
   }
 
   function HoursSet(props){
-    console.log("mark4")
+    
     var array = [1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12]
     var list=array.map(elem=>{
 
-      return (<li class="list-group-item text-primary text-center w-100 " style={{opacity:"1 !important"}}  onClick={(e)=>{ e.preventDefault() ; props.setup(elem)  }}  data-dismiss="modal" >{elem}</li>)
+      return (<li class="list-group-item text-primary text-center w-100 "   onClick={(e)=>{ e.preventDefault() ; props.setup(elem)  }}  data-dismiss="modal" ><h1>{elem}</h1></li>)
     })
     
     return (
-      <div class="modal fade" id="exampleModalHours" tabindex="-1" role="dialog" aria-labelledby="exampleModalHoursTitle" aria-hidden="true" style={{opacity:"0.8"}}>
+      <div class="modal fade" id="exampleModalHours" tabindex="-1" role="dialog" aria-labelledby="exampleModalHoursTitle" aria-hidden="true" style={{opacity:"0.9"}}>
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-body">

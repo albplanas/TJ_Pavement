@@ -71,15 +71,16 @@ class Sign_Print extends Component {
 
      render(){
         
+         
         
         return  (
-            <div>
-              
-              <canvas id="signature-pad"   class="signature-pad border border-dark shadow"  onMouseMove ={this.change} onTouchMove={this.change} >
+            <div class="Signpad">
+              <h3 className="text-white mt-2 ml-3 text-warning">Please,Sign below </h3>
+              <canvas id="signature-pad"   class="signature-pad border border-dark shadow mt-3 mb-3"  onMouseMove ={this.change} onTouchMove={this.change} >
               </canvas>
-              <div class="btn-group ml-3" role="group" aria-label="Basic example">
-                <button id="clear" type="button" class="btn btn-secondary text-warning">Clear</button>
-               
+              <div class="btn-group w-80 mt-3 mr-3 float-right" role="group" aria-label="Basic example">
+                <button id="clear" type="button" class="btn btn-light text-danger">Clear</button>
+                <button id="done" type="button" class="btn btn-dark text-success"onClick={this.props.done}>Done</button>
             </div>
          
 
