@@ -78,7 +78,7 @@ cursor: crosshair;
     -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
     animation-name: example;
-    animation-duration:1s;
+    animation-duration:0.3s;
 }
 
 .Signpad canvas{
@@ -88,11 +88,22 @@ cursor: crosshair;
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes example {
     from {top: 0;}
-    to {top: 50%;}
+    to {top: 30%;}
 }
 
 /* Standard syntax */
 @keyframes example {
     from {top: 0;}
-    to {top: 50%;}
+    to {top: 30%;}
+}
+.alert{
+    position :fixed;
+    z-index: 101;
+    top:40vh;
+    text-align:left;
+    width: 100%;
+    font-size: 30px;
+    margin-left:30px; 
+    margin-right:30px;
+     
 }

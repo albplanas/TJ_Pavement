@@ -38,7 +38,7 @@ body {
 
 .login-form {
   position: absolute;
-  top: 20vh;
+  top:20vh;
   left: 12.5vw;
   padding-left: -50px;
   width:75vw;
@@ -130,3 +130,11 @@ body {
   }
 }
 
+@media (max-height: 400px) {
+  .login-form {
+    top:0 !important;
+  }
+  #Log .container{
+    top: 90vh;
+  }
+}

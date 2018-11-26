@@ -25,7 +25,9 @@ class reportForm extends Component {
           hr:0,
           openhr:false,
           catName:'',
-         
+          msm:"",
+          nameSMS:'',
+          sentAlert:false
         }
         
  
@@ -59,6 +61,73 @@ class reportForm extends Component {
       this.setState({ EmployeeReport:eList})
     }
      Send(){
+      
+       var val=true,sms='';
+       //Check Send
+       if(this.state.Employees.length===0){
+        val=false;
+        this.setState({
+
+          nameSMS : "",
+          sms:"Empty",
+          sentAlert:true
+          }
+        )
+        
+       
+      } 
+     for(var i in this.state.Employees){
+          if(this.state.Employees[i].Hours.length===0){
+            var name=this.state.Employees[i].name
+            val=false
+            this.setState({
+
+              nameSMS : name,
+              sms:"Hours",
+              sentAlert:true
+              }
+            )
+            break;
+          } 
+          if(this.state.Employees[i].Signature.length===0){
+            var name=this.state.Employees[i].name
+            val=false;
+            this.setState({
+
+              nameSMS : name,
+              sms:"Signature",
+              sentAlert:true
+              }
+            )
+            break;
+          } 
+
+     }
+  
+     if(val===true){
+      this.setState({
+
+        nameSMS : '',
+        sms:"done",
+        sentAlert:true
+        }
+      )
+     }
+     
+
+     setTimeout(()=>{
+
+      if(this.state.sms==="done"){console.log("1");this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)}
+      this.setState({
+
+        nameSMS : '',
+        sms:"",
+        sentAlert:false
+        } )
+        
+       }, 5000);
+
+
        //Update Local database
       axios.get('/oldReports')
       .then((response)=> {
@@ -90,7 +159,7 @@ class reportForm extends Component {
 
      cancel(e){
          
-         this.props.onSelectReport(false,this.props.supervisorSelect,this.props.date)
+         this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)
      }
      
 
@@ -246,7 +315,6 @@ Pass(){
 
 
    if(this.state.openhr===true){$('#exampleModalHours').modal('show')} 
-
      //Employee
       var arrayEmployee=this.state.Employees.map((elem,index)=>{
 
@@ -348,7 +416,7 @@ Pass(){
                                                            <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2" onClick={this.Send}><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
                                                              <Alert Pass={this.Pass}/>
-                                                            
+                                                             <SendAlert info ={this.state}/>
                                                              <HoursSet info={this.state} setup={this.PartII}/>
                                                       </div>
       );
@@ -374,6 +442,35 @@ Pass(){
                   </div>
             </div>
       )
+  }
+
+  function SendAlert(props){
+    if(props.info.sentAlert === true){
+
+      if(props.info.sms==="done"){
+        return ( <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Your Report was sent successfully!!!</strong>
+                </div>)
+    }
+    if(props.info.sms==="Empty"){
+      return ( <div class="alert alert-dark alert-dismissible fade show text-warning" role="alert">
+                <strong>Your Report is empty!!!</strong>
+              </div>)
+  }
+    if(props.info.sms==="Hours"){
+      return ( <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{props.info.nameSMS +" has troubles with the Hours Report"}</strong>
+              </div>)
+  }
+  if(props.info.sms==="Signature"){
+    return ( <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>{props.info.nameSMS +" has troubles with the Signature, try to sign again"}</strong>
+            </div>)
+}
+    }
+    else{
+      return (<div/>)
+    }
   }
 
   function HoursSet(props){
@@ -415,7 +512,8 @@ Pass(){
     return {
       onSelectReport: (value, newValue,name,date) => dispatch({type: actionTypes.OPENREPORT , newValue:newValue, value:value,name:name,date:date}),
         onDeleteWorker: (list) => dispatch({type: actionTypes.DELETEWORKER , list:list}),
-        onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value})
+        onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value}),
+        
     };
 };
   export default connect(mapStateToProps,mapDispatchToProps)(reportForm);
