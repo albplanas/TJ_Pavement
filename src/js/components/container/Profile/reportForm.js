@@ -117,7 +117,7 @@ class reportForm extends Component {
 
      setTimeout(()=>{
 
-      if(this.state.sms==="done"){console.log("1");this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)}
+      if(this.state.sms==="done"){this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)}
       this.setState({
 
         nameSMS : '',
@@ -315,56 +315,59 @@ Pass(){
 
 
    if(this.state.openhr===true){$('#exampleModalHours').modal('show')} 
-     //Employee
+   
+   
+   
+   //Employee
       var arrayEmployee=this.state.Employees.map((elem,index)=>{
 
 
-      var  check="col-9 Elem shadow border border-success";
- 
+                                      var  check="col-9 Elem shadow border border-success";
+                                
 
 
-      var  JobList=elem.Hours.map((listed,j)=>{
-              return (
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span className=" mr-3" id={index+";"+j} onClick={this.deleteCtg}><i class="fas fa-trash-alt" style={{color:"red"}}/></span>
-                                  {listed[0]}
-                                  <span class="badge badge-primary badge-pill float-right">{listed[1]}</span>
-                </li>
-              )
-      })
+                                      var  JobList=elem.Hours.map((listed,j)=>{
+                                              return (
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <span className=" mr-3" id={index+";"+j} onClick={this.deleteCtg}><i class="fas fa-trash-alt" style={{color:"red"}}/></span>
+                                                                  {listed[0]}
+                                                                  <span class="badge badge-primary badge-pill float-right">{listed[1]}</span>
+                                                </li>
+                                              )
+                                      })
 
 
-      
-        return (
-            <li className="ListElem row "  >
-              
-                <div class="input-group mb-3 col-50">
-                  <div class="input-group-prepend">
-                  {this.state.signPass?<div></div>: <button className=" btn btn-white border border-danger shadow " name={index+''} style={{width:"40px",maxHeight:"38px"}}  onClick={this.delete}  ><i name={index+''} id={index+''} onClick={this.delete} style={{color:"red"}} class="fas fa-trash-alt" /></button>
-                  }</div>
-                  <div className={check} style={{overflow:"hidden",maxHeight:"38px" }} id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" style={{width:"300px"}} >{elem.name}</h6></div>
-                </div>
-                <div class="input-group mb-3  " >
-                        <ul class="list-group list-group-flush w-75 "style={{marginLeft:"15%"}}>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                               <select class=" w-100 ElemAdd shadow border border-primary custom-select mr-3 mb-3" onChange={this.CategoriesAdd} id={"addCTG_"+index} >
-                                                                            <option className="text-dark"  >Select a job's name.</option>
-                                                                                 {arrayCategories}
-                                                                            </select>
-                          </li>
+                                      
+                                        return (
+                                            <li className="ListElem row "  >
+                                              
+                                                <div class="input-group mb-3 col-50">
+                                                  <div class="input-group-prepend">
+                                                  {this.state.signPass?<div></div>: <button className=" btn btn-white border border-danger shadow " name={index+''} style={{width:"40px",maxHeight:"38px"}}  onClick={this.delete}  ><i name={index+''} id={index+''} onClick={this.delete} style={{color:"red"}} class="fas fa-trash-alt" /></button>
+                                                  }</div>
+                                                  <div className={check} style={{overflow:"hidden",maxHeight:"38px" }} id={index+''} onClick={this.SelectEmployee} ><h6  name={index+''} className=" text-dark" style={{width:"300px"}} >{elem.name}</h6></div>
+                                                </div>
+                                                <div class="input-group mb-3  " >
+                                                        <ul class="list-group list-group-flush w-75 "style={{marginLeft:"15%"}}>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                              <select class=" w-100 ElemAdd shadow border border-primary custom-select mr-3 mb-3" onChange={this.CategoriesAdd} id={"addCTG_"+index} >
+                                                                                                            <option className="text-dark"  >Select a job's name.</option>
+                                                                                                                {arrayCategories}
+                                                                                                            </select>
+                                                          </li>
 
-                          {JobList}
+                                                          {JobList}
 
 
-                         {!this.state.signPass?(<li className="list-group-item d-flex justify-content-between align-items-center mt-3" ><button className="btn w-90 text-success shadow border border-success btn-block" onClick={this.SwitchSign}  >Signature up</button></li>):(<li className="list-group-item d-flex justify-content-between align-items-center mt-3">  <Sign_Print DataSign={this.DataSign} done={this.SwitchSign} data={this.state.Employees[this.state.selectEmployee].Signature}/></li>) }
-                          
-                        </ul>
-              
-                  
-                </div>
-               
-              </li>
-          )
+                                                        {!this.state.signPass?(<li className="list-group-item d-flex justify-content-between align-items-center mt-3" ><button className="btn  text-success shadow border border-success" onClick={this.SwitchSign}  ><i class="fas fa-edit"></i></button></li>):(<li className="list-group-item d-flex justify-content-between align-items-center mt-3">  <Sign_Print DataSign={this.DataSign} done={this.SwitchSign} data={this.state.Employees[this.state.selectEmployee].Signature}/></li>) }
+                                                          
+                                                        </ul>
+                                              
+                                                  
+                                                </div>
+                                              
+                                              </li>
+                                          )
       })
 
 
@@ -376,7 +379,7 @@ Pass(){
 
         //WholeList
           
-        var arrayWholeList= this.props.WholeList.map(elem=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
+        var arrayWholeList= this.props.WholeList.map(elem=>{ return ( <a className="text-dark dropdown-item" value={elem}>{elem}</a> )})
       
 
       return (
@@ -388,23 +391,29 @@ Pass(){
                                                           </div>
                                                             <a onClick={this.cancel}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"40px",left:"40px"}}></i></a>
                                                             <hr/>
-                                                           <div className="container">   
+                                                           <div className="tableRelative">   
                                                               <div id="display" class="form-group row ">
-                                                                <label class="col-3 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
-                                                                <select class="col-6 custom-select mb-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
+                                                                <label class="col-2 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
+                                                                <select class="col-9 custom-select mb-3 ml-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
                                                                   {arrayProject}
                                                                 </select>
                                                               </div>
-                                                            
+                                                            {/*
                                                               <div class="col-auto  ">
                                                                 <label class="mr-sm-3" for="inlineFormCustomSelect">Employees</label>
                                                                 <ul> 
                                                                     <li className="ListElem row " >
-                                                                      
-                                                                            <select class=" w-100 ElemAdd shadow border border-primary custom-select mr-3 mb-3" onChange={this.add} id="addWorker" >
+                                                                    <div class="input-group mb-3">
+
+                                                                        <div class="input-group-append">
+                                                                          <span class="shadow border border-dark bg-primary input-group-text" style={{height:"38px"}}  id="basic-addon2"><i style={{color:"white"}} class="fas fa-user-plus"></i></span>
+                                                                        </div>
+                                                                        <select class="shadow border border-primary custom-select  mb-3" onChange={this.add} id="addWorker" >
                                                                             <option className="text-dark" >Select an employee.</option>
                                                                                  {arrayWholeList}
                                                                             </select>
+                                                                      </div>
+                                                                            
                                                                       
                                                                          </li>
                                                                     <hr className="col-10" />
@@ -412,6 +421,50 @@ Pass(){
                                                                 </ul>
                                                                
                                                               </div>
+                                                                       */}
+                                                                   
+                                                            <table class="table table-bordered">
+                                                                  <thead>
+                                                                    <tr>
+                                                                      <th className='bg-primary colN-1' >
+                                                                             <div class="btn-group dropright " >
+                                                                                <button type="button" class="btn btnTable  btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="fas fa-user-plus"></i> 
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                  {arrayWholeList}
+                                                                                </div>
+                                                                            </div> 
+                                                                    </th>
+                                                                      <th ><p className="pl-3 pt-1">Name</p></th>
+                                                                      <th className="ml-3"><p className="pl-3 pt-1">Report</p></th>
+                                                                      <th className="colN-1 "><p className="pl-1 pt-1">Add</p></th>
+                                                                      <th className="colN-1 "><p className="pl-1  pt-1">Sign</p></th>
+                                                                    </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                    <tr>
+                                                                      <th scope="row"><i style={{marginTop:"30%",marginLeft:"30%" ,color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                                                                      <td>Mark</td>
+                                                                      <td>Otto</td>
+                                                                      <td><i style={{color:"rgb(66,139,202)"}} class="fas fa-plus"></i></td>
+                                                                      <td><i style={{color:"rgb(92,184,92)"}} class="fas fa-pencil-alt "></i></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <th scope="row"><i style={{marginTop:"30%",marginLeft:"30%" ,color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                                                                      <td>Jacob</td>
+                                                                      <td>Thornton</td>
+                                                                      <td><i style={{color:"rgb(66,139,202)"}} class="fas fa-plus"></i></td>
+                                                                      <td><i style={{color:"rgb(92,184,92)"}} class="fas fa-pencil-alt "></i></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <th scope="row"><i style={{marginTop:"30%",marginLeft:"30%" ,color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                                                                      <td colspan="2">Larry the Bird</td>
+                                                                      <td><i style={{color:"rgb(66,139,202)"}} class="fas fa-plus"></i></td>
+                                                                      <td><i style={{color:"rgb(92,184,92)"}} class="fas fa-pencil-alt "></i></td>
+                                                                    </tr>
+                                                                  </tbody>
+                                                                </table>
 
                                                            <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2" onClick={this.Send}><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
