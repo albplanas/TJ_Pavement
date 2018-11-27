@@ -120,7 +120,7 @@ table{
 }
 
 .colN-2{
-    width:20vw!important;
+    width:25vw!important;
 }
 .colN-4{
     width:40px!important;
@@ -146,12 +146,25 @@ table{
 }
 
 #newReport .navbar .form-control{
-    width:40vw;
+    width:20vw;
     height:30px;
     padding-top:3px;
     padding-bottom:3px;
   }
-
+.form-inline{
+    width:50vw;
+    margin-left:50px;
+}
+.form-inline button{
+   margin-left: 5vw;
+   height: 32px;
+}
+@media (max-width: 665px) {
+    .form-inline{
+        width:50vw;
+        margin-left:0px;
+    }
+ }
   .custom-select  {
     font-size: 16px;
     height:30px;

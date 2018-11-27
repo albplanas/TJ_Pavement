@@ -389,9 +389,9 @@ Check_in_doneList(name){
 
                     <tr>
                           <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  ><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
-                    <td>
+                    <td className="colN-2">
                       
-                          <select class="w-100 custom-select " id={'Name_'+indexElem} onChange={this.onChangeSelectName}>
+                          <select class=" custom-select " id={'Name_'+indexElem} onChange={this.onChangeSelectName}>
                                     <option className="text-dark" value="Choose">Choose</option>
                                     {arrayWholeList}
                           </select>
@@ -401,9 +401,9 @@ Check_in_doneList(name){
                       <table class="table table-striped">
                             <thead>
                               <tr>
-                                <th id={'ctg_'+indexElem} onClick={this.AddCtg}><i style={{height:"40px"; marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus"></i></th>
+                                <th id={'ctg_'+indexElem} onClick={this.AddCtg}><i style={{marginRight: "5px", marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus"></i></th>
                                 <th scope="col">Labor</th>
-                                <th ><i class="fas fa-clock" style={{marginLeft:"20px"}}></i></th>
+                                <th >Hours</th>
                                 
                               </tr>
                             </thead>
@@ -450,11 +450,12 @@ Check_in_doneList(name){
                                                                               {arrayProject}
                                                                             </select>
                                                                         </div>
-                                                                      
+                                                                        <button type="button" class="btn btn-primary form-group shadow border border-dark btn-sm w-25 " onClick={this.Send}><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Send</button>
+                                                          
                                                                     </form>
                                                                   
                                                                 </div>
-
+                                                               
                                                               </nav>
 
                                                             
@@ -478,7 +479,6 @@ Check_in_doneList(name){
                                                                   </tbody>
                                                                 </table>
 
-                                                           <button type="button" class="btn float-right shadow border border-dark btn-success btn-circle btn-xl mt-5 mr-2" onClick={this.Send}><i class="fa fa-paper-plane"></i></button>
                                                              </div>  
                                                              <Alert Pass={this.Pass}/>
                                                              
