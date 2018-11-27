@@ -158,13 +158,29 @@ table{
 .form-inline button{
    margin-left: 5vw;
    height: 32px;
+   width:80px;
 }
 @media (max-width: 665px) {
     .form-inline{
-        width:50vw;
-        margin-left:0px;
+        width:auto;
+        margin-left: 0px;
+        margin-bottom: 0px;
+       
     }
+    .form-inline button{
+        margin-left:5px;
+    }
+   
  }
+ #newReport .navbar h6{
+    margin-left:10px;  
+    margin-top: 12px;
+    margin-bottom: auto;
+    font-size: 12px;
+  }
+  .form-group{
+      margin-bottom: 0px;
+  }
   .custom-select  {
     font-size: 16px;
     height:30px;

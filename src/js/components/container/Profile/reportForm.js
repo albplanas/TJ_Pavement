@@ -450,7 +450,7 @@ Check_in_doneList(name){
                                                                               {arrayProject}
                                                                             </select>
                                                                         </div>
-                                                                        <button type="button" class="btn btn-primary form-group shadow border border-dark btn-sm w-25 " onClick={this.Send}><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Send</button>
+                                                                        <button type="button" class="btn btn-primary form-group shadow border border-dark btn-sm  " onClick={this.Send}><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Send</button>
                                                           
                                                                     </form>
                                                                   
