@@ -158,7 +158,8 @@ table{
 .form-inline button{
    margin-left: 5vw;
    height: 32px;
-   width:80px;
+   width:100px;
+   margin-right: -20px
 }
 @media (max-width: 665px) {
     .form-inline{
@@ -169,6 +170,7 @@ table{
     }
     .form-inline button{
         margin-left:5px;
+        margin-right: -20px
     }
    
  }
