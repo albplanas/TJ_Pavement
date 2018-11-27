@@ -90,6 +90,14 @@
 thead{
     height:40px !important;
 }
+table{
+    margin-bottom: 0px !important;
+}
+.table td, .table th {
+    padding: .15rem;
+    vertical-align: middle;
+    /* border-top: 1px solid #dee2e6; */
+}
 .colN-1{
     width:40px !important;
     height:40px !important;
@@ -120,3 +128,32 @@ thead{
 .colN-3{
     width:100px!important;
 }
+
+
+#newReport .navbar{
+    position : fixed;
+    top:0;
+    width:100%;
+    z-index: 99;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+#newReport .navbar h6{
+  margin-left:5vw;  
+  margin-top: 10px;
+  margin-bottom: auto;
+}
+
+#newReport .navbar .form-control{
+    width:40vw;
+    height:30px;
+    padding-top:3px;
+    padding-bottom:3px;
+  }
+
+  .custom-select  {
+    font-size: 16px;
+    height:30px;
+    padding: .1rem 1.75rem .1rem .75rem;
+  }

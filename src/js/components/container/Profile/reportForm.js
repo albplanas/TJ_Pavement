@@ -367,7 +367,7 @@ Check_in_doneList(name){
                            })
                     return (
                       <tr>
-                      <th scope="row" id={indexElem+"_"+index}  onClick={this.deleteCtg}><i style={{color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                      <th scope="row" id={indexElem+"_"+index}  onClick={this.deleteCtg}><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
                       <td > 
                         <select class="w-100 custom-select " id={"labor_"+indexElem+"_"+index} onChange={this.onChangeSelectLabor} >
                         <option className="text-dark" value="Choose">Choose</option>
@@ -388,7 +388,7 @@ Check_in_doneList(name){
                   return (
 
                     <tr>
-                          <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  ><i style={{color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                          <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  ><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
                     <td>
                       
                           <select class="w-100 custom-select " id={'Name_'+indexElem} onChange={this.onChangeSelectName}>
@@ -401,7 +401,7 @@ Check_in_doneList(name){
                       <table class="table table-striped">
                             <thead>
                               <tr>
-                                <th id={'ctg_'+indexElem} onClick={this.AddCtg}><i style={{color:"rgb(66,139,202)"}} class="fas fa-plus"></i></th>
+                                <th id={'ctg_'+indexElem} onClick={this.AddCtg}><i style={{height:"40px"; marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus"></i></th>
                                 <th scope="col">Labor</th>
                                 <th ><i class="fas fa-clock" style={{marginLeft:"20px"}}></i></th>
                                 
@@ -418,7 +418,7 @@ Check_in_doneList(name){
                    
 
                   
-                    {!this.state.signPass?(<td onClick={this.SwitchSign} ><i style={{color:"rgb(92,184,92)"}} class="fas fa-pencil-alt "></i> </td>):(<Sign_Print DataSign={this.DataSign} done={this.SwitchSign} index={indexElem} data={this.state.Employees[indexElem].Signature}/>) }
+                    {!this.state.signPass?(<td onClick={this.SwitchSign} ><i style={{marginLeft:'5px',color:"rgb(92,184,92)"}} class="fas fa-pencil-alt "></i> </td>):(<Sign_Print DataSign={this.DataSign} done={this.SwitchSign} index={indexElem} data={this.state.Employees[indexElem].Signature}/>) }
                  
 
                   </tr>
@@ -430,27 +430,41 @@ Check_in_doneList(name){
 
       return (
                                                       <div id ="newReport">
-                                                        <div className="text-center">
-                                                            <h5 className="col-auto text-dark ml-3 mb-1 mt-2"><u>Attendees Report</u></h5>
-                                                            <h6 className="col-auto text-dark ml-3 mb-1 ">{this.props.supervisorSelect+''}</h6>
-                                                            <h6 className="col-auto text-dark ml-3 mb-5 ">{this.props.date+''}</h6>
-                                                          </div>
-                                                            <a onClick={this.cancel}><i class="fas fa-arrow-left text-danger" style={{fontSize:"20px",position:"absolute", top:"40px",left:"40px"}}></i></a>
-                                                            <hr/>
-                                                           <div className="tableRelative">   
-                                                              <div id="display" class="form-group row ">
-                                                                <label class="col-2 mr-sm-2" for="inlineFormCustomSelectP">Project</label>
-                                                                <select class="col-9 custom-select mb-3 ml-3" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
-                                                                  {arrayProject}
-                                                                </select>
-                                                              </div>
+
+
+
+
+                                                              <nav class="navbar navbar-default bg-dark">
+                                                                <div class="container-fluid">
+                                                                  <div class="navbar-header">
+                                                                    <a class="navbar-brand" href="#" onClick={this.cancel}>
+                                                                            <i class="fas fa-arrow-left text-danger" ></i>
+                                                                    </a>
+                                                                    
+                                                                    <h6 className="col-auto text-white float-right">{this.props.date+''}</h6>
+                                                                  </div>
+                                                                  <form class="form-inline" >
+                                                                        <div class="form-group">
+                                                                        <label className="text-white" for="inlineFormCustomSelectP">Project</label>
+                                                                            <select class=" form-control custom-select ml-3 w-85" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
+                                                                              {arrayProject}
+                                                                            </select>
+                                                                        </div>
+                                                                      
+                                                                    </form>
+                                                                  
+                                                                </div>
+
+                                                              </nav>
+
                                                             
-                                                                   
+                                                           <div className="tableRelative" style={{marginTop:"30px"}}>   
+                                                            
                                                             <table class="table table-bordered">
                                                                   <thead>
                                                                     <tr>
                                                                       <th className='colN-1' onClick={this.AddRow} >
-                                                                             <i class="fas fa-user-plus " style={{color:"rgb(66,139,202)"}}></i>
+                                                                             <i class="fas fa-user-plus " style={{marginLeft:'5px',color:"rgb(66,139,202)"}}></i>
                                                                                 
                                                                     </th>
                                                                       <th className="colN-2 ">Name</th>

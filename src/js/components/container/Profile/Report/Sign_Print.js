@@ -75,7 +75,7 @@ class Sign_Print extends Component {
      render(){
         
        var i= this.state.index;
-       console.log("PD",i)
+       
        
         var style={
             marginLeft:"5%"
