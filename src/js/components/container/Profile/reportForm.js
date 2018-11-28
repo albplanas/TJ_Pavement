@@ -334,6 +334,9 @@ Check_in_doneList(name){
         
       var ArrayHrs= hrs.map((elem,index)=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
 
+
+
+      
  //Employee
             var NameList=this.state.Employees.map((elem,indexElem)=>{return elem.name})
 
@@ -351,39 +354,73 @@ Check_in_doneList(name){
                                  })
 
 
-                 var JobsList=elem.Hours.map((elem,indexElem)=>{return elem[0]})
+                 var JobsList=elem.Hours.map((elem)=>{return elem[0]})
 
-                  var ListLabor= elem.Hours.map((ctg,index)=>{
 
-                          var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
-                            if(JobsList.indexOf(elemCTG)!==-1){ 
-                              return ( <option className="text-muted"  id={"ctg_"+indexElem+"_"+index} disabled value={elemCTG}>{elemCTG}</option> )
-                            } 
-                            else{
+                 if(elem.Hours.length===0){
+                                        
 
-                              return ctg[0]=== elemCTG ? ( <option className="text-dark"  id={"ctg_"+indexElem+"_"+index} selected value={elemCTG}>{elemCTG}</option> ):( <option className="text-primary"  id={"ctg_"+indexElem+"_"+index} value={elemCTG}>{elemCTG}</option> );
+                                          var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
+                                            
+                                              return ( <option className="text-primary"  id={"ctg_"+0+"_"+0} disabled value={elemCTG}>{elemCTG}</option> )                                  
+                                          })
+                           var  ListLabor=[]; 
+                           ListLabor.push(
+                                      <tr>
+                                      <th scope="row" id={0+"_"+0}  onClick={this.deleteCtg}><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                                      <td > 
+                                        <select class="w-100 custom-select " id={"labor_"+0+"_"+0} onChange={this.onChangeSelectLabor} >
+                                        <option className="text-dark" value="Choose">Select Labor</option>
+                                          {arrayCategories}
+                                        </select>
+                                        </td>
+                                      <td className="colN-3">
+                                        <select class="custom-select " id={"hr_"+0+"_"+0} onChange={this.onChangeSelectHour}>
+                                        <option className="text-dark" value="Choose">Select Hours </option>
+                                          {ArrayHrs}
+                                        </select>
+                                      </td>
+                                      
+                                    </tr>
+                                
+                                  
+                                    )
+                 }
+                else{
+                                              var ListLabor= elem.Hours.map((ctg,index)=>{
+
+                                                var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
+                                                  if(JobsList.indexOf(elemCTG)!==-1){ 
+                                                    return ( <option className="text-muted"  id={"ctg_"+indexElem+"_"+index} disabled value={elemCTG}>{elemCTG}</option> )
+                                                  } 
+                                                  else{
                       
-                            }                                  
-                           })
-                    return (
-                      <tr>
-                      <th scope="row" id={indexElem+"_"+index}  onClick={this.deleteCtg}><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
-                      <td > 
-                        <select class="w-100 custom-select " id={"labor_"+indexElem+"_"+index} onChange={this.onChangeSelectLabor} >
-                        <option className="text-dark" value="Choose">Choose</option>
-                          {arrayCategories}
-                        </select>
-                        </td>
-                      <td className="colN-3">
-                        <select class="custom-select " id={"hr_"+indexElem+"_"+index} onChange={this.onChangeSelectHour}>
-                          {ArrayHrs}
-                        </select>
-                      </td>
-                      
-                    </tr>
-                
-                   
-                    )})
+                                                    return ctg[0]=== elemCTG ? ( <option className="text-dark"  id={"ctg_"+indexElem+"_"+index} selected value={elemCTG}>{elemCTG}</option> ):( <option className="text-primary"  id={"ctg_"+indexElem+"_"+index} value={elemCTG}>{elemCTG}</option> );
+                                            
+                                                  }                                  
+                                                })
+                                          return (
+                                            <tr>
+                                            <th scope="row" id={indexElem+"_"+index}  onClick={this.deleteCtg}><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                                            <td > 
+                                              <select class="w-100 custom-select " id={"labor_"+indexElem+"_"+index} onChange={this.onChangeSelectLabor} >
+                                              <option className="text-dark" value="Choose">Select Labor</option>
+                                                {arrayCategories}
+                                              </select>
+                                              </td>
+                                            <td className="colN-3">
+                                              <select class="custom-select " id={"hr_"+indexElem+"_"+index} onChange={this.onChangeSelectHour}>
+                                              <option className="text-dark" value="Choose">Select Hours </option>
+                                                {ArrayHrs}
+                                              </select>
+                                            </td>
+                                            
+                                          </tr>
+                                      
+                                        
+                                          )})
+                          }
+                  
                     
                   return (
 
@@ -392,25 +429,26 @@ Check_in_doneList(name){
                     <td className="colN-2">
                       
                           <select class=" custom-select " id={'Name_'+indexElem} onChange={this.onChangeSelectName}>
-                                    <option className="text-dark" value="Choose">Choose</option>
+                                    <option className="text-dark" value="Choose">Select Employee</option>
                                     {arrayWholeList}
                           </select>
                     </td>
                     <td>
-
-                      <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th id={'ctg_'+indexElem} onClick={this.AddCtg}><i style={{marginRight: "5px", marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus"></i></th>
-                                <th scope="col">Labor</th>
-                                <th >Hours</th>
-                                
-                              </tr>
-                            </thead>
+                    <table class="table ">
                             <tbody>
-                                {ListLabor}
+                            <td >
+                                    <table class="table table-striped">
+                                    <tbody>
+                                        {ListLabor}
+                                    </tbody>
+                                  </table> 
+                            </td>
+                             <td id={'ctg_'+indexElem} onClick={this.AddCtg}>
+                                    <i style={{marginRight: "5px", marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus"></i>
+                            </td>
                             </tbody>
-                          </table>  
+                       </table> 
+                     
           
                     </td>
                     
@@ -450,7 +488,7 @@ Check_in_doneList(name){
                                                                               {arrayProject}
                                                                             </select>
                                                                         </div>
-                                                                        <button type="button" class="btn btn-primary form-group shadow border border-dark btn-sm  " onClick={this.Send}><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Send</button>
+                                                                        <button type="button" class="btn btn-primary form-group shadow border border-dark btn-sm w-25 " onClick={this.Send}><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Send</button>
                                                           
                                                                     </form>
                                                                   
