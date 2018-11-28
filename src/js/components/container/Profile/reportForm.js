@@ -17,7 +17,7 @@ class reportForm extends Component {
 
         this.state={
           selectEmployee:"",
-          Employees:[{name:"", Hours:[["",1]],Signature:[]}],
+          Employees:[{name:"", Hours:[["",'Choose']],Signature:[]}],
           projSelect:"",
           doneList:[],
           deleteId:'',
@@ -105,7 +105,7 @@ AddRow(){
   var l =this.state.Employees.length;
 
  
-    var list = this.state.Employees.concat([{name:"", Hours:[['',1]],Signature:[]}])
+    var list = this.state.Employees.concat([{name:"", Hours:[['',"Choose"]],Signature:[]}])
     
     
     
@@ -122,7 +122,7 @@ DeleteRow(e){
     e.preventDefault();
    var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
    var i=index.split("_")[1]
-   $('#exampleModalCenter').modal('show')
+  
 
     this.setState({deleteId:i})
   
@@ -147,12 +147,50 @@ AddCtg(e){
   e.preventDefault();
   var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
   var i=index.split("_")[1]-0;
-  var   list=this.state.Employees;
-        list[i].Hours.push(['',1])
+  var sumHr=0;
+  var elem0=false;
 
+  for(var k in this.state.Employees[i].Hours) {
+   
+    if(this.state.Employees[i].Hours[k][1]==="Choose"){elem0=true;}
+    sumHr+= this.state.Employees[i].Hours[k][1]==="Choose"? 0 : this.state.Employees[i].Hours[k][1]-0
+
+  }
+
+
+  var cant = (11-sumHr)*2+1;
+ 
+  if(cant>0){
+      if(elem0===false){
+        var   list=this.state.Employees;
+        list[i].Hours.push(['',1])
+        
       this.setState({
         Employees:list
                     })
+      }
+       
+  }
+  else{
+    this.setState({
+      nameSMS : i+1,
+        sms:"TooMuchHours",
+        sentAlert:true
+                  })
+                  setTimeout(()=>{
+
+                    
+                    this.setState({
+              
+                      nameSMS : '',
+                      sms:"",
+                      sentAlert:false
+                      } )
+                      
+                     }, 5000);
+  }
+
+
     
 }
 
@@ -210,35 +248,69 @@ ChngSign(e){
   })
  }
      Send(){
-      
+
+     
+
        var val=true,sms='';
-       //Check Send
-       if(this.state.Employees.length===0){
-        val=false;
-        this.setState({
+            //Check Send
+            if(this.state.Employees.length===0){
+              val=false;
+              this.setState({
 
-          nameSMS : "",
-          sms:"Empty",
-          sentAlert:true
-          }
-        )
-        
-       
-      } 
+                nameSMS : "",
+                sms:"Empty",
+                sentAlert:true
+                }
+              )
+            } 
+
+
      for(var i in this.state.Employees){
-          if(this.state.Employees[i].Hours.length===0){
-            var name=this.state.Employees[i].name
-            val=false
+          
+          
+          if(this.state.Employees[i].name==="" ||this.state.Employees[i].name==="Choose"){
+            var name=i-0+1
+            val=false;
             this.setState({
-
               nameSMS : name,
-              sms:"Hours",
+              sms:"Name",
               sentAlert:true
               }
             )
             break;
-          } 
-          if(this.state.Employees[i].Signature.length===0){
+          }
+          var past=false;
+          console.log()
+          for(var j in this.state.Employees[i].Hours){
+
+              if(this.state.Employees[i].Hours[j][0]==="" ||this.state.Employees[i].Hours[j][0]==="Choose"){
+                past=true;
+                val=false;
+                this.setState({
+                  nameSMS : this.state.Employees[i].name,
+                  sms:"job",
+                  sentAlert:true
+                  }
+                )
+                break;
+              }
+              
+
+              if(this.state.Employees[i].Hours[j][1]==="Choose"){
+                past=true;
+                val=false;
+                this.setState({
+                  nameSMS : this.state.Employees[i].name,
+                  sms:"Hours",
+                  sentAlert:true
+                  }
+                )
+                break;
+              }
+
+          }
+
+          if(this.state.Employees[i].Signature.length===0 && past===false){
             var name=this.state.Employees[i].name
             val=false;
             this.setState({
@@ -249,8 +321,7 @@ ChngSign(e){
               }
             )
             break;
-          } 
-
+          }  
      }
   
      if(val===true){
@@ -312,7 +383,7 @@ Check_in_doneList(name){
 
 
   componentWillMount() {
-    var list =this.props.Employees.length===0?[{name:"", Hours:[["",1]],Signature:[]}]:this.props.Employees;
+    var list =this.props.Employees.length===0?[{name:"", Hours:[["","Choose"]],Signature:[]}]:this.props.Employees;
     console.log(this.props.Employees)
     this.setState({ 
                     Employees:list,
@@ -355,7 +426,7 @@ Check_in_doneList(name){
         //Hours
         var hrs=  [1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12]
         
-      var ArrayHrs= hrs.map((elem,index)=>{ return ( <option className="text-dark" value={elem}>{elem}</option> )})
+     
 
 
 
@@ -375,13 +446,26 @@ Check_in_doneList(name){
                                         
                                             }
                                  })
-
+                               
 
                  var JobsList=elem.Hours.map((elem)=>{return elem[0]})
 
 
                 
                    var ListLabor= elem.Hours.map((ctg,index)=>{
+
+
+                                                    var sumHr=0;
+                                                    for(var k in elem.Hours) {
+                                                      console.log(k,index)
+                                                      sumHr+= k-0===index-0 || elem.Hours[k][1]==="Choose"? 0 : elem.Hours[k][1]-0
+                         
+                                                    }
+                                                    var cant = (11-sumHr)*2+1;
+                                                    console.log(hrs.length,cant)
+                                                    var ArrayHrs= hrs.slice(0,cant).map((elem,index)=>{ 
+                                                      return ( <option className="text-dark" value={elem}>{elem}</option> )
+                                                      })
 
                                                 var  arrayCategories=this.props.Project[this.state.projSelect].Categories.sort().map((elemCTG)=>{
                                                   if(JobsList.indexOf(elemCTG)!==-1){ 
@@ -419,7 +503,7 @@ Check_in_doneList(name){
                   return (
 
                     <tr>
-                          <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  ><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt fa-lg"></i></th>
+                          <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  data-toggle="modal" data-target="#exampleModalCenter"  ><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt fa-lg"></i></th>
                     <td className="colN-2">
                       
                           <select class=" custom-select " id={'Name_'+indexElem} onChange={this.onChangeSelectName}>
@@ -519,7 +603,7 @@ Check_in_doneList(name){
 
                                                              </div>  
                                                              <Alert Pass={this.Pass}/>
-                                                             
+                                                            < SendAlert info={this.state}/>
                                                             
                                                       </div>
       );
@@ -548,28 +632,49 @@ Check_in_doneList(name){
   }
 
   function SendAlert(props){
+    console.log(props)
     if(props.info.sentAlert === true){
 
-      if(props.info.sms==="done"){
-        return ( <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>Your Report was sent successfully!!!</strong>
+          if(props.info.sms==="done"){
+            return ( <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Your Report was sent successfully!!!</strong>
+                    </div>)
+        }
+            if(props.info.sms==="Name"){
+              return ( <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{"The employee number " + props.info.nameSMS  + " needs to select a name." }</strong>
+                      </div>)
+          }
+            if(props.info.sms==="Empty"){
+              return ( <div class="alert alert-dark alert-dismissible fade show text-warning" role="alert">
+                        <strong>Your Report is empty!!!</strong>
+                      </div>)
+          }
+            if(props.info.sms==="Hours"){
+              return ( <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{props.info.nameSMS +" has troubles with the Hours Report"}</strong>
+                      </div>)
+          }
+      if(props.info.sms==="job"){
+        return ( <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>{props.info.nameSMS +" needs to select all of names' labor properly."}</strong>
                 </div>)
     }
-    if(props.info.sms==="Empty"){
-      return ( <div class="alert alert-dark alert-dismissible fade show text-warning" role="alert">
-                <strong>Your Report is empty!!!</strong>
+        if(props.info.sms==="TooMuchHours"){
+          return ( <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{"You can't add more labors for the employee "+props.info.nameSMS +" because there are too much hours report, Check the hours Schedule again."}</strong>
+                  </div>)
+      }
+      if(props.info.sms==="Signature"){
+        return ( <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{props.info.nameSMS +" has to sign yet."}</strong>
+                </div>)
+    }
+    if(props.info.sms==="Signature"){
+      return ( <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{props.info.nameSMS +" has to sign yet."}</strong>
               </div>)
-  }
-    if(props.info.sms==="Hours"){
-      return ( <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>{props.info.nameSMS +" has troubles with the Hours Report"}</strong>
-              </div>)
-  }
-  if(props.info.sms==="Signature"){
-    return ( <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>{props.info.nameSMS +" has troubles with the Signature, try to sign again"}</strong>
-            </div>)
-}
+    }
     }
     else{
       return (<div/>)
