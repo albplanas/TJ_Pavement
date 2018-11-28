@@ -2,7 +2,6 @@
 'use strict';
 
 const express     = require('express');
-const bodyParser  = require('body-parser');
 
 
 const app = express();
@@ -11,8 +10,7 @@ app.use(express.static(__dirname +'./../dist')); //serves the index.html
 
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 /************************************************ */
 
 var Connection = require('tedious').Connection;

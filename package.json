@@ -1,12 +1,11 @@
 {
-  "name": "optic",
+  "name": "dailyreport",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "build": "webpack --watch --mode production",
-    "test": "jest"
+    "build": "webpack --watch --mode production"
   },
   "keywords": [],
   "author": "Adrian Batista",
@@ -16,7 +15,6 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
@@ -32,14 +30,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "ify-loader": "^1.1.0",
     "mssql": "^4.2.3",
     "react-redux": "^5.0.7",
     "react-signature-canvas": "^1.0.0-alpha.1",
     "redux": "^4.0.0",
-    "signature_pad": "^3.0.0-beta.3",
     "tedious": "^3.0.1"
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Home from "./Home"
+import Profile from "./Profile/Profile"
 
 import { createStore,combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -20,7 +20,7 @@ class App extends Component {
 
   render() {
     return (
-      <Home/>
+      <Profile/>
     );
   }
 }
