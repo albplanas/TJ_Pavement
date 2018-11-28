@@ -92,6 +92,7 @@ thead{
 }
 table{
     margin-bottom: 0px !important;
+    font-size: 20px;
 }
 .table td, .table th {
     padding: .15rem;
@@ -141,8 +142,9 @@ table{
 
 #newReport .navbar h6{
   margin-left:5vw;  
-  margin-top: 10px;
+  margin-top: 16px;
   margin-bottom: auto;
+  font-family: 'Taviraj', serif;
 }
 
 #newReport .navbar .form-control{
@@ -175,17 +177,18 @@ table{
     }
    
  }
+ 
  #newReport .navbar h6{
     margin-left:10px;  
     margin-top: 12px;
     margin-bottom: auto;
-    font-size: 12px;
+    font-size: 12px
   }
   .form-group{
       margin-bottom: 0px;
   }
   .custom-select  {
-    font-size: 16px;
-    height:30px;
+    font-size: 20px;
+    height:35px;
     padding: .1rem 1.75rem .1rem .75rem;
   }

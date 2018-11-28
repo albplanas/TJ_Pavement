@@ -362,7 +362,7 @@ Check_in_doneList(name){
 
                                           var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
                                             
-                                              return ( <option className="text-primary"  id={"ctg_"+0+"_"+0} disabled value={elemCTG}>{elemCTG}</option> )                                  
+                                              return ( <option className="text-primary"  id={"ctg_"+0+"_"+0}  value={elemCTG}>{elemCTG}</option> )                                  
                                           })
                            var  ListLabor=[]; 
                            ListLabor.push(
@@ -482,7 +482,7 @@ Check_in_doneList(name){
                                                                             <i class="fas fa-arrow-left text-danger fa-lg" ></i>
                                                                     </a>
                                                                     
-                                                                    <h6 className="col-auto text-white float-right">{this.props.date+''}</h6>
+                                                                    <h6 className="col-auto text-white float-right" >{this.props.date+''}</h6>
                                                                   </div>
                                                                   <form class="form-inline" >
                                                                         <div class="form-group">
