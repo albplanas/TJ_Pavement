@@ -163,14 +163,15 @@ table{
 }
 @media (max-width: 665px) {
     .form-inline{
-        width:auto;
-        margin-left: 0px;
+        width:50vw;
+        margin-left: -20px;
         margin-bottom: 0px;
        
     }
     .form-inline button{
         margin-left:5px;
-        margin-right: -20px
+        margin-right: -20px;
+        width:100px;
     }
    
  }
