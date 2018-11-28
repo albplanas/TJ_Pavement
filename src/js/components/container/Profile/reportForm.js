@@ -383,7 +383,7 @@ Check_in_doneList(name){
                 
                    var ListLabor= elem.Hours.map((ctg,index)=>{
 
-                                                var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
+                                                var  arrayCategories=this.props.Project[this.state.projSelect].Categories.sort().map((elemCTG)=>{
                                                   if(JobsList.indexOf(elemCTG)!==-1){ 
                                                     return ( <option className="text-muted"  id={"ctg_"+indexElem+"_"+index} disabled value={elemCTG}>{elemCTG}</option> )
                                                   } 

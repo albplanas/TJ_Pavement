@@ -74,7 +74,7 @@ class HomeProfile extends Component {
                         
                         <div class="container">
                             
-                                    <button class="btn  shadow  text-white btn-primary " href="#"  role="button" name="newReport" onClick={this.Select} >         
+                                    <button class="btn  shadow  text-white btn-primary " id="initBtn" href="#"  role="button" name="newReport" onClick={this.Select} >         
                                     <i class="fas fa-edit"></i> {'\u00A0'} Get Report  
 
                                     </button>  

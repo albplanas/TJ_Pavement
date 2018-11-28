@@ -12,11 +12,17 @@ const EmployeeList=IdEmployee.map((elem,index)=>{
     return elem[0]
 }) 
 
+EmployeeList.sort();
+
+
 const IdCategories=[["Asphalt Paver",1],["Cement Mason / Concrete Finisher",2],["Employee - Salary",4],["Employee Hourly Wage",5],["Employee Hourly Wage - Other Company",6],["LABORER - Concrete Laborer",7],["LABORER - Grader Checker",8],["LABORER - Grader Checker Trainee",9],["LABORER - Mason Trainee",10],["LABORER - Traffic control Specialist Trainee",11],["Labor NON REGULAR",12],["LABORER - Erosion Control Specialist Trainee",13],["Pipe Labor NON REGEULAR",14],["Asphalt Shoveler NON REGULAR",15],["Office - Salary",16],["Office Salary - Concrete",18],["Bulldozer NON REGULAR",19],["Concrete Finisher NON REGULAR",20],["OPERATOR - Backhoe",21],["Bobcat NON REGULAR",22],["Grader NON REGULAR",24],["Loader NON REGULAR",25],["Milling NON REGEULAR",26],["OPERATOR–Paver",27],["Roller NON REGULAR",28],["Paid Time Off - Holiday Salary",29],["Paid Time Off - Holiday Wages",30],["Paid Time Off - Sick Salary",31],["Paid Time Off - Sick Wages",32],["Paid Time Off - Vacation Salary",33],["Paid Time Off - Vacation Wages",34],["Shareholder Compensation–Salary",35],["Dump Truck NON Regular",36],["TRUCK DRIVER – Lowboy",37],["Yard - Salary",38],["OPERATOR-Backhoe Loader",42],["Asphalt Shoveler",44],["Operator - Asphalt Paver",45],["Truck Driver - Dump",46],["Laborer - Common / General",47],["Labores - Power Tool Operator",48],["Laborer / Common Gen",49],["Laborer Pipe Layers",50],["Operator - Bachoe Loader",51],["Operator - Bulldozer",52],["Operator - Excavator",53],["Operator - Roller",54],["Operator - Bachoe / Excavator",55],["Operator - Bobcat / Skid Loader",56],["Operator - Concrete Finishing Machine",57],["Operator - Greader / Blade",58],["Operator  Roller",60],["Truck Driver Dump",62],["Operator - Loader",63],["Operator - Milling Machine",64],["Operator - Paver",65],["Flagman",66],["Laborer Concrete Finish",67],["Truck Drivers Distributor",68],["Truck Drivers Vactor Truck",69]];
 const CatList=IdCategories.map((elem,index)=>{
    
     return elem[0]
 })  
+
+
+
 
 const ProjectList=[["20150195",8],["E6J13",9],["M2015-022",18],["E6K59",23],["E6K96",29],["B30836",31],["2017-035.0",33],["T201617013",35],["T201617012",36],["033-17",37],["B30966",38],["10-18",40],["M0130",41],["2017-0350B",42],["T6448",43]]                
 var Proj= ProjectList.map((elem,index)=>{
