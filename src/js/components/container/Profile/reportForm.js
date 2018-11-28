@@ -17,11 +17,12 @@ class reportForm extends Component {
 
         this.state={
           selectEmployee:"",
-          Employees:[],
+          Employees:[{name:"", Hours:[["",1]],Signature:[]}],
           projSelect:"",
           doneList:[],
           deleteId:'',
           signPass:false,
+          indexSelect:0,
           hr:0,
           openhr:false,
           catName:'',
@@ -49,12 +50,12 @@ class reportForm extends Component {
         this.AddRow          =this.AddRow.bind(this);
         this.DeleteRow       =this.DeleteRow.bind(this);
         this.AddCtg          =this.AddCtg.bind(this);
-        this.DataSign        =this.DataSign.bind(this);
         
         
         this.onChangeSelectName=this.onChangeSelectName.bind(this)
         this.onChangeSelectLabor=this.onChangeSelectLabor.bind(this);
         this.onChangeSelectHour=this.onChangeSelectHour.bind(this);
+        this.ChngSign=this.ChngSign.bind(this)
      }
 
 onChangeSelectName(e){
@@ -95,21 +96,16 @@ onChangeSelectHour(e){
   list[i].Hours[j][1]=document.getElementById(index).value;
   this.setState({Employees:list})
 }
-DataSign(data,index){
- 
-      var list= this.state.Employees;
-      list[index].Signature.push(data);
-      this.setState({
-        Employees:list
-      })
-}
+
+
+
 
 AddRow(){
 
   var l =this.state.Employees.length;
 
  
-    var list = this.state.Employees.concat([{name:"", Hours:[],Signature:[]}])
+    var list = this.state.Employees.concat([{name:"", Hours:[['',1]],Signature:[]}])
     
     
     
@@ -163,14 +159,20 @@ AddCtg(e){
 deleteCtg(e){
 
   e.preventDefault();
+
+  
+
    var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
    var i=index.split("_")[0]-0;
    var j=index.split("_")[1]-0;
 
-
+   console.log(i,j,this.state.Employees)
+ 
   var list = this.state.Employees;
-      
-  list[i].Hours=list[i].Hours.filter((elem,i_elem)=>i_elem!==j)
+  if(j>0){
+    list[i].Hours=list[i].Hours.filter((e,index)=> index!==j)
+  }
+  
   
       this.setState({Employees:list})
     
@@ -181,13 +183,32 @@ deleteCtg(e){
 cancel(e){
          
   this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)
+  this.props.onDeleteWorker(this.state.Employees)
 }
 
-SwitchSign(){
+ChngSign(e){
+      e.preventDefault();
+      var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
+      var i=index.split("_")[1]-0;
+  this.setState({ 
+    indexSelect:i,
+    signPass:!this.state.signPass,
     
-  this.setState({ signPass:!this.state.signPass})
+  })
  }
+ SwitchSign(data,index){
+  
 
+  var   list  = this.state.Employees;
+  
+  if(this.state.signPass===true){
+    list[index].Signature=data;
+  }
+  this.setState({ 
+    signPass:!this.state.signPass,
+    Employees:list
+  })
+ }
      Send(){
       
        var val=true,sms='';
@@ -291,8 +312,10 @@ Check_in_doneList(name){
 
 
   componentWillMount() {
-
-    this.setState({ Employees:this.props.Employees,
+    var list =this.props.Employees.length===0?[{name:"", Hours:[["",1]],Signature:[]}]:this.props.Employees;
+    console.log(this.props.Employees)
+    this.setState({ 
+                    Employees:list,
                     projSelect:this.props.ProjectSelect})
 
   }
@@ -357,37 +380,8 @@ Check_in_doneList(name){
                  var JobsList=elem.Hours.map((elem)=>{return elem[0]})
 
 
-                 if(elem.Hours.length===0){
-                                        
-
-                                          var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
-                                            
-                                              return ( <option className="text-primary"  id={"ctg_"+0+"_"+0}  value={elemCTG}>{elemCTG}</option> )                                  
-                                          })
-                           var  ListLabor=[]; 
-                           ListLabor.push(
-                                      <tr>
-                                      <th scope="row" id={0+"_"+0}  onClick={this.deleteCtg}><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
-                                      <td > 
-                                        <select class="w-100 custom-select " id={"labor_"+0+"_"+0} onChange={this.onChangeSelectLabor} >
-                                        <option className="text-dark" value="Choose">Select Labor</option>
-                                          {arrayCategories}
-                                        </select>
-                                        </td>
-                                      <td className="colN-3">
-                                        <select class="custom-select " id={"hr_"+0+"_"+0} onChange={this.onChangeSelectHour}>
-                                        <option className="text-dark" value="Choose">Select Hours </option>
-                                          {ArrayHrs}
-                                        </select>
-                                      </td>
-                                      
-                                    </tr>
-                                
-                                  
-                                    )
-                 }
-                else{
-                                              var ListLabor= elem.Hours.map((ctg,index)=>{
+                
+                   var ListLabor= elem.Hours.map((ctg,index)=>{
 
                                                 var  arrayCategories=this.props.Project[this.state.projSelect].Categories.map((elemCTG)=>{
                                                   if(JobsList.indexOf(elemCTG)!==-1){ 
@@ -419,7 +413,7 @@ Check_in_doneList(name){
                                       
                                         
                                           )})
-                          }
+                  
                   
                     
                   return (
@@ -452,17 +446,20 @@ Check_in_doneList(name){
           
                     </td>
                     
-
-                   
-
+                   {
+                      (this.state.signPass===true && this.state.indexSelect===indexElem)? <Sign_Print done={this.SwitchSign} index={indexElem}/>:
+                                  this.state.Employees[indexElem].Signature.length > 0  ?  
+                                   <td id={"sig_"+indexElem} onClick={this.ChngSign} ><i style={{marginLeft:'5px'}}  class="far fa-check-circle text-success fa-lg"></i> </td> : 
+                                   <td id={"esig_"+indexElem} onClick={this.ChngSign} ><i style={{marginLeft:'5px'}} class="fas fa-pen-fancy text-warning fa-lg"></i> </td>
+                              
+                            
+                        
+                                  
+                     
                   
-                    {!this.state.signPass? this.state.Employees[indexElem].Signature.length > 0  ?  
-                                          (<td onClick={this.SwitchSign} ><i style={{marginLeft:'5px'}}  class="far fa-check-circle text-success fa-lg"></i> </td>) : 
-                                          (<td onClick={this.SwitchSign} ><i style={{marginLeft:'5px'}} class="fas fa-pen-fancy text-warning fa-lg"></i> </td>):
-                                          (<Sign_Print DataSign={this.DataSign} done={this.SwitchSign} index={indexElem} data={this.state.Employees[indexElem].Signature}/>) }
+                   }
                  
-
-                  </tr>
+                   </tr>
 
 
                   )})

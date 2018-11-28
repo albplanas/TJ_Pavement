@@ -37,6 +37,7 @@
     "ify-loader": "^1.1.0",
     "mssql": "^4.2.3",
     "react-redux": "^5.0.7",
+    "react-signature-canvas": "^1.0.0-alpha.1",
     "redux": "^4.0.0",
     "signature_pad": "^3.0.0-beta.3",
     "tedious": "^3.0.1"
