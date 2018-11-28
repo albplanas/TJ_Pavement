@@ -425,7 +425,7 @@ Check_in_doneList(name){
                   return (
 
                     <tr>
-                          <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  ><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt"></i></th>
+                          <th scope="row" onClick={this.DeleteRow} id={'elem_'+indexElem}  ><i style={{marginLeft:'5px',color:"rgb(217,83,79)"}} class="fas fa-trash-alt fa-lg"></i></th>
                     <td className="colN-2">
                       
                           <select class=" custom-select " id={'Name_'+indexElem} onChange={this.onChangeSelectName}>
@@ -444,7 +444,7 @@ Check_in_doneList(name){
                                   </table> 
                             </td>
                              <td id={'ctg_'+indexElem} onClick={this.AddCtg}>
-                                    <i style={{marginRight: "5px", marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus"></i>
+                                    <i style={{marginRight: "5px", marginLeft:'5px',color:"rgb(66,139,202)"}} class="fas fa-plus fa-lg"></i>
                             </td>
                             </tbody>
                        </table> 
@@ -456,7 +456,10 @@ Check_in_doneList(name){
                    
 
                   
-                    {!this.state.signPass?(<td onClick={this.SwitchSign} ><i style={{marginLeft:'5px',color:"rgb(92,184,92)"}} class="fas fa-pencil-alt "></i> </td>):(<Sign_Print DataSign={this.DataSign} done={this.SwitchSign} index={indexElem} data={this.state.Employees[indexElem].Signature}/>) }
+                    {!this.state.signPass? this.state.Employees[indexElem].Signature.length > 0  ?  
+                                          (<td onClick={this.SwitchSign} ><i style={{marginLeft:'5px'}}  class="far fa-check-circle text-success fa-lg"></i> </td>) : 
+                                          (<td onClick={this.SwitchSign} ><i style={{marginLeft:'5px'}} class="fas fa-pen-fancy text-warning fa-lg"></i> </td>):
+                                          (<Sign_Print DataSign={this.DataSign} done={this.SwitchSign} index={indexElem} data={this.state.Employees[indexElem].Signature}/>) }
                  
 
                   </tr>
@@ -476,7 +479,7 @@ Check_in_doneList(name){
                                                                 <div class="container-fluid">
                                                                   <div class="navbar-header">
                                                                     <a class="navbar-brand" href="#" onClick={this.cancel}>
-                                                                            <i class="fas fa-arrow-left text-danger" ></i>
+                                                                            <i class="fas fa-arrow-left text-danger fa-lg" ></i>
                                                                     </a>
                                                                     
                                                                     <h6 className="col-auto text-white float-right">{this.props.date+''}</h6>
@@ -503,7 +506,7 @@ Check_in_doneList(name){
                                                                   <thead>
                                                                     <tr>
                                                                       <th className='colN-1' onClick={this.AddRow} >
-                                                                             <i class="fas fa-user-plus " style={{marginLeft:'5px',color:"rgb(66,139,202)"}}></i>
+                                                                             <i class="fas fa-user-plus fa-lg" style={{marginLeft:'5px',color:"rgb(66,139,202)"}}></i>
                                                                                 
                                                                     </th>
                                                                       <th className="colN-2 ">Name</th>
