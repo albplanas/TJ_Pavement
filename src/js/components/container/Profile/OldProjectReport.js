@@ -33,9 +33,9 @@ class OldProjectReport extends Component {
                     return undefined
            }
     categoriesById(idC,idL) {
-        console.log(idC,idL)
+       
         if(idC===null || idC==='null'){
-            console.log("entre")
+          
             for (var j=0;j<this.props.IdLabor.length;j++){
                 if(this.props.IdLabor[j][0].toString()===idL.toString()){
                     return this.props.IdLabor[j][1] 
@@ -112,7 +112,7 @@ class OldProjectReport extends Component {
             
               var finalArray = this.props.OldReportsList.filter(elem=>elem[0].toString()===Last.toString() && elem[4].toString()===this.state.selectReport.toString())
               var conversionArray =[];
-            console.log(finalArray)
+            
 
               for (var i=0;i<finalArray.length;i++){
 

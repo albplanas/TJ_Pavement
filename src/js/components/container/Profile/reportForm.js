@@ -2,7 +2,6 @@ import React,{Component} from "react";
 import { connect } from 'react-redux';
 
 import * as actionTypes from './../../../../store/actions';
-const  {checkTheList, validHours}   = require('./Validation');
 import Sign_Print from './Report/Sign_Print'
 
 import axios from 'axios';
@@ -55,36 +54,45 @@ class reportForm extends Component {
         this.onChangeSelectName=this.onChangeSelectName.bind(this)
         this.onChangeSelectLabor=this.onChangeSelectLabor.bind(this);
         this.onChangeSelectHour=this.onChangeSelectHour.bind(this);
+        this.onChangeSelectProject=this.onChangeSelectProject.bind(this);
         this.ChngSign=this.ChngSign.bind(this)
      }
 
 onChangeSelectName(e){
   e.preventDefault();
-  var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
-  var i=index.split("_")[1]-0;
-  var list= this.state.Employees;
-  list[i].name=document.getElementById(index).value;
-  this.setState({Employees:list})
+ // if(this.state.Employees[this.state.selectEmployee].Signature.length===0){
+         
+          var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
+          var i=index.split("_")[1]-0;
+          var list= this.state.Employees;
+          list[i].name=document.getElementById(index).value;
+          this.setState({Employees:list})
+  //}
 }
 
 onChangeSelectLabor(e){
   e.preventDefault();
-  var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
+ // if(this.state.Employees[this.state.selectEmployee].Signature.length===0){
+    var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
 
 
 
-  var i=index.split("_")[1]-0;
-  var j=index.split("_")[2]-0;
+    var i=index.split("_")[1]-0;
+    var j=index.split("_")[2]-0;
+  
+  
+    var list= this.state.Employees;
+    list[i].Hours[j][0]=document.getElementById(index).value;
+    this.setState({Employees:list})
+  //}
+ 
 
-
-  var list= this.state.Employees;
-  list[i].Hours[j][0]=document.getElementById(index).value;
-  this.setState({Employees:list})
 }
 onChangeSelectHour(e){
+  //if(this.state.Employees[this.state.selectEmployee].Signature.length===0){
 
-  e.preventDefault();
-  var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
+    e.preventDefault();
+    var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
 
 
 
@@ -95,9 +103,22 @@ onChangeSelectHour(e){
   var list= this.state.Employees;
   list[i].Hours[j][1]=document.getElementById(index).value;
   this.setState({Employees:list})
+ // }
+ 
+  
 }
 
+onChangeSelectProject(e){
+ 
 
+    e.preventDefault();
+   var Proj=document.getElementById("inlineFormCustomSelectP").value;
+  this.props.onProjectSelect(Proj)
+  this.setState({ projSelect :Proj})
+
+ 
+  
+}
 
 
 AddRow(){
@@ -148,11 +169,9 @@ AddCtg(e){
   var index= e.target.id===""? e.target.parentNode.id===""? e.target.parentNode.parentNode.id:e.target.parentNode.id   :e.target.id;
   var i=index.split("_")[1]-0;
   var sumHr=0;
-  var elem0=false;
 
   for(var k in this.state.Employees[i].Hours) {
    
-    if(this.state.Employees[i].Hours[k][1]==="Choose"){elem0=true;}
     sumHr+= this.state.Employees[i].Hours[k][1]==="Choose"? 0 : this.state.Employees[i].Hours[k][1]-0
 
   }
@@ -161,14 +180,14 @@ AddCtg(e){
   var cant = (11-sumHr)*2+1;
  
   if(cant>0){
-      if(elem0===false){
+      
         var   list=this.state.Employees;
         list[i].Hours.push(['',1])
         
       this.setState({
         Employees:list
                     })
-      }
+     
        
   }
   else{
@@ -204,7 +223,7 @@ deleteCtg(e){
    var i=index.split("_")[0]-0;
    var j=index.split("_")[1]-0;
 
-   console.log(i,j,this.state.Employees)
+   
  
   var list = this.state.Employees;
   if(j>0){
@@ -249,118 +268,178 @@ ChngSign(e){
  }
      Send(){
 
+      
+      //Check online conection
+      var online = navigator.onLine;
+
      
 
-       var val=true,sms='';
-            //Check Send
-            if(this.state.Employees.length===0){
-              val=false;
-              this.setState({
+      if(!online){
+       
+        this.setState({
 
-                nameSMS : "",
-                sms:"Empty",
-                sentAlert:true
-                }
-              )
-            } 
-
-
-     for(var i in this.state.Employees){
-          
-          
-          if(this.state.Employees[i].name==="" ||this.state.Employees[i].name==="Choose"){
-            var name=i-0+1
-            val=false;
-            this.setState({
-              nameSMS : name,
-              sms:"Name",
-              sentAlert:true
-              }
-            )
-            break;
+          nameSMS : "",
+          sms:"OFFLINE",
+          sentAlert:true
           }
-          var past=false;
-          console.log()
-          for(var j in this.state.Employees[i].Hours){
+        )
+      }
+     else{
 
-              if(this.state.Employees[i].Hours[j][0]==="" ||this.state.Employees[i].Hours[j][0]==="Choose"){
-                past=true;
-                val=false;
-                this.setState({
-                  nameSMS : this.state.Employees[i].name,
-                  sms:"job",
-                  sentAlert:true
-                  }
-                )
-                break;
-              }
-              
 
-              if(this.state.Employees[i].Hours[j][1]==="Choose"){
-                past=true;
-                val=false;
-                this.setState({
-                  nameSMS : this.state.Employees[i].name,
-                  sms:"Hours",
-                  sentAlert:true
-                  }
-                )
-                break;
-              }
+      var val=true,sms='';
+      //Check Send
+      if(this.state.Employees.length===0){
+        val=false;
+        this.setState({
 
+          nameSMS : "",
+          sms:"Empty",
+          sentAlert:true
           }
+        )
+      } 
+   
 
-          if(this.state.Employees[i].Signature.length===0 && past===false){
-            var name=this.state.Employees[i].name
-            val=false;
-            this.setState({
-
-              nameSMS : name,
-              sms:"Signature",
-              sentAlert:true
-              }
-            )
-            break;
-          }  
-     }
-  
-     if(val===true){
+for(var i in this.state.Employees){
+    
+    
+    if(this.state.Employees[i].name==="" ||this.state.Employees[i].name==="Choose"){
+      var name=i-0+1
+      val=false;
       this.setState({
-
-        nameSMS : '',
-        sms:"done",
+        nameSMS : name,
+        sms:"Name",
         sentAlert:true
         }
       )
-     }
-     
+      break;
+    }
+    var past=false;
+    
+    for(var j in this.state.Employees[i].Hours){
 
-     setTimeout(()=>{
+        if(this.state.Employees[i].Hours[j][0]==="" ||this.state.Employees[i].Hours[j][0]==="Choose"){
+          past=true;
+          val=false;
+          this.setState({
+            nameSMS : this.state.Employees[i].name,
+            sms:"job",
+            sentAlert:true
+            }
+          )
+          break;
+        }
+        
 
-      if(this.state.sms==="done"){this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)}
+        if(this.state.Employees[i].Hours[j][1]==="Choose"){
+          past=true;
+          val=false;
+          this.setState({
+            nameSMS : this.state.Employees[i].name,
+            sms:"Hours",
+            sentAlert:true
+            }
+          )
+          break;
+        }
+
+    }
+
+    if(this.state.Employees[i].Signature.length===0 && past===false){
+      var name=this.state.Employees[i].name
+      val=false;
       this.setState({
 
-        nameSMS : '',
-        sms:"",
-        sentAlert:false
-        } )
-        
-       }, 5000);
+        nameSMS : name,
+        sms:"Signature",
+        sentAlert:true
+        }
+      )
+      break;
+    }  
+}
 
 
-       //Update Local database
-      axios.get('/oldReports')
-      .then((response)=> {
-          
-          //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
-          
-      })
-      axios.get('/idProjectReference')
-      .then((response)=> {
-      
-          //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
-          
-      })
+
+
+if(val===true){
+
+  var array=[];
+  var Emp=this.state.Employees;
+
+ 
+
+  Emp.forEach(elem=>{
+        var newArray=elem.Hours.map(ctg=>{
+              
+                      var NameCode  = this.props.IdEmployee.filter(elemName=>elemName[0]+''===elem.name+'')
+                      var LaborCode = this.props.IdLabor.filter(elemLabor=>elemLabor[1]+''===ctg[0]+'')
+
+                     return  {
+                          name :NameCode[0][1],
+                          Signature:elem.Signature,
+                          Project:this.props.IdProject[this.state.projSelect][1],
+                          Labor:LaborCode[0][0],
+                          Hours: ctg[1]-0,
+                          date:this.props.date
+                      }
+              })
+         array=array.concat(newArray)     
+
+  })
+
+  console.log(array)
+
+var report={
+
+      reportList:array
+
+}
+
+//Update Local database
+axios.post('http://jva-sql:8080/Assistance/FlushJson.php',{report})
+.then((response)=> {
+    
+    //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
+    console.log("this is the data",response.data)
+})
+.catch(error => {
+  console.log("this is the error",error)
+})
+
+
+this.setState({
+
+  nameSMS : '',
+  sms:"done",
+  sentAlert:true
+  }
+)
+}
+
+
+setTimeout(()=>{
+
+if(this.state.sms==="done"){
+  this.props.onSelectReport(false,false,this.props.supervisorSelect,this.props.date)
+ // this.props.OnOldReportUpdate(array)
+}
+this.setState({
+
+  nameSMS : '',
+  sms:"",
+  sentAlert:false
+  } )
+  
+ }, 5000);
+
+
+
+     }
+            
+
+
      }
 
 UpdateForm(list,name){
@@ -384,7 +463,7 @@ Check_in_doneList(name){
 
   componentWillMount() {
     var list =this.props.Employees.length===0?[{name:"", Hours:[["","Choose"]],Signature:[]}]:this.props.Employees;
-    console.log(this.props.Employees)
+    
     this.setState({ 
                     Employees:list,
                     projSelect:this.props.ProjectSelect})
@@ -394,15 +473,8 @@ Check_in_doneList(name){
   //Update the list
  componentWillReceiveProps(nextProps) {
  
-    if(nextProps.ProjectSelect!==this.state.projSelect){
-         
-
-        
-            this.setState({ Employees:nextProps.Employees,
-                      projSelect:nextProps.ProjectSelect})
-                }
-    else if(nextProps.Employees.length!==this.state.Employees.length ) {
-            this.setState({  Employees:nextProps.Employees,projSelect:nextProps.ProjectSelect  })
+    if(nextProps.Employees.length!==this.state.Employees.length ) {
+            this.setState({  Employees:nextProps.Employees})
     }           
     
                
@@ -457,12 +529,12 @@ Check_in_doneList(name){
 
                                                     var sumHr=0;
                                                     for(var k in elem.Hours) {
-                                                      console.log(k,index)
+                                                     
                                                       sumHr+= k-0===index-0 || elem.Hours[k][1]==="Choose"? 0 : elem.Hours[k][1]-0
                          
                                                     }
                                                     var cant = (11-sumHr)*2+1;
-                                                    console.log(hrs.length,cant)
+                                                  
                                                     var ArrayHrs= hrs.slice(0,cant).map((elem,index)=>{ 
                                                       return ( <option className="text-dark" value={elem}>{elem}</option> )
                                                       })
@@ -532,14 +604,10 @@ Check_in_doneList(name){
                     
                    {
                       (this.state.signPass===true && this.state.indexSelect===indexElem)? <Sign_Print done={this.SwitchSign} index={indexElem}/>:
-                                  this.state.Employees[indexElem].Signature.length > 0  ?  
+  
+                                   this.state.Employees[indexElem].Signature.length > 0  ?  
                                    <td id={"sig_"+indexElem} onClick={this.ChngSign} ><i style={{marginLeft:'5px'}}  class="far fa-check-circle text-success fa-lg"></i> </td> : 
                                    <td id={"esig_"+indexElem} onClick={this.ChngSign} ><i style={{marginLeft:'5px'}} class="fas fa-pen-fancy text-warning fa-lg"></i> </td>
-                              
-                            
-                        
-                                  
-                     
                   
                    }
                  
@@ -567,8 +635,8 @@ Check_in_doneList(name){
                                                                   </div>
                                                                   <form class="form-inline" >
                                                                         <div class="form-group">
-                                                                        <label className="text-white" for="inlineFormCustomSelectP">Project</label>
-                                                                            <select class=" form-control custom-select ml-3 w-85" id="inlineFormCustomSelectP" onClick={()=>{this.props.onProjectSelect(document.getElementById("inlineFormCustomSelectP").value)}}>
+                                                                        <label className="text-white" for="Proj">Project</label>
+                                                                            <select class=" form-control custom-select ml-3 w-85" id="Proj" onClick={this.onChangeSelectProject}>
                                                                               {arrayProject}
                                                                             </select>
                                                                         </div>
@@ -632,7 +700,7 @@ Check_in_doneList(name){
   }
 
   function SendAlert(props){
-    console.log(props)
+    
     if(props.info.sentAlert === true){
 
           if(props.info.sms==="done"){
@@ -650,6 +718,11 @@ Check_in_doneList(name){
                         <strong>Your Report is empty!!!</strong>
                       </div>)
           }
+          if(props.info.sms==="OFFLINE"){
+            return ( <div class="alert alert-danger alert-dismissible fade show text-danger" role="alert">
+                      <strong>You don't have internet conection!!!</strong>
+                    </div>)
+        }
             if(props.info.sms==="Hours"){
               return ( <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>{props.info.nameSMS +" has troubles with the Hours Report"}</strong>
@@ -683,13 +756,18 @@ Check_in_doneList(name){
 
   const mapStateToProps = state => {
     return {
+
         Employees:state.globalState.Employees,
         Project:state.globalState.Project,
         Supervisor:state.globalState.Supervisor,
         WholeList:state.globalState.WholeList,
         ProjectSelect:state.globalState.ProjectSelect,
-        date:state.globalState.dateSelect,
         supervisorSelect:state.globalState.supervisorSelect,
+        date:          state.globalState. dateSelect,
+        IdCategories:state.globalState.IdCategories,
+        IdEmployee:state.globalState.IdEmployee,
+        IdLabor:state.globalState.IdLabor,
+        IdProject:state.globalState.IdProject
 
     };
   };
@@ -698,7 +776,7 @@ Check_in_doneList(name){
       onSelectReport: (value, newValue,name,date) => dispatch({type: actionTypes.OPENREPORT , newValue:newValue, value:value,name:name,date:date}),
         onDeleteWorker: (list) => dispatch({type: actionTypes.DELETEWORKER , list:list}),
         onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value}),
-        
+        OnOldReportUpdate:(value) => dispatch({type: actionTypes.ENDUPDATE , value:value})
     };
 };
   export default connect(mapStateToProps,mapDispatchToProps)(reportForm);

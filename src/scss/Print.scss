@@ -1,19 +1,15 @@
 canvas{
-    width: 100%;
-    max-width:400px;
+    width: 90vw;
+    max-width:90vw;
     height:200px;
-    margin-left: 12;
+    margin-left: 5vw !important;
     margin-right: auto;
 }
 canvas:hover {
 cursor: crosshair;
 }
 
-@media (min-width: 500px) { 
-    canvas{
-        margin-left:calc(50% - 220px)
-    }
- }
+
 
  .Close-btn{
     width :25px;

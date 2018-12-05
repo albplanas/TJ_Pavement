@@ -1,3 +1,5 @@
+
+
 function checkTheList(elem,list){
    
     return list.indexOf(elem)===-1? false:true  

@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import { connect } from 'react-redux';
-
+var FontAwesome = require('react-fontawesome');
 import * as actionTypes from './../../../../store/actions';
 
 class HomeProfile extends Component {
@@ -58,6 +58,7 @@ class HomeProfile extends Component {
                         <div class="layer"></div>
                         <div class="login-form">
                         <h1>Sign In</h1>
+                         
                                 <div class="form-group  ">
                                     <label class=" text-white" for="inlineFormCustomSelectSuperv">Supervisor</label>
                                     <select class="custom-select  mb-3" id="inlineFormCustomSelectSuperv">
