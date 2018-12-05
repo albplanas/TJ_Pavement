@@ -38,8 +38,7 @@ class OldReport extends Component {
 
     render() {
 
-console.log(this.props.info)   
-console.log(this.state.info)
+
    var   EmployeeReport=this.state.info.map(elem=>{
 
                          var  HoursReport=elem.Hours.map(hour=>{
@@ -116,4 +115,5 @@ console.log(this.state.info)
         onProjectSelect:(value) => dispatch({type: actionTypes.PROJECTSELECT , value:value})
     };
 };
-  export default connect(mapStateToProps,mapDispatchToProps)(OldReport);
+ // export default connect(mapStateToProps,mapDispatchToProps)(OldReport);
+ export default OldReport;

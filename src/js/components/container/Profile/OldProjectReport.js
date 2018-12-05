@@ -94,7 +94,7 @@ class OldProjectReport extends Component {
                                     <a id={"s"+elem.id} href="#" class="list-group-item list-group-item-action flex-column align-items-start mb-3 bg-dark shadow">
                                         <div id={"t"+elem.id} class="d-flex w-100 justify-content-between">
                                         <h5 id={"e"+elem.id} class="mb-1 text-primary">{elem.name}</h5>
-                                        <small id={"n"+elem.id} text-white>{dayAgo===1? dayAgo+" day ago": dayAgo+" days ago"} </small>
+                                        <small id={"n"+elem.id} class="text-primary">{dayAgo===1? dayAgo+" day ago": dayAgo+" days ago"} </small>
                                         </div>
                                         <p id={"d"+elem.id} class="mb-1 text-white">Some comentaries over there ...</p>
                                     </a>

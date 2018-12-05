@@ -368,8 +368,22 @@ if(val===true){
   var array=[];
   var Emp=this.state.Employees;
 
- 
+  //date SQL format
+  function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+
+
+ 
   Emp.forEach(elem=>{
         var newArray=elem.Hours.map(ctg=>{
               
@@ -377,32 +391,25 @@ if(val===true){
                       var LaborCode = this.props.IdLabor.filter(elemLabor=>elemLabor[1]+''===ctg[0]+'')
 
                      return  {
-                          name :NameCode[0][1],
+                          idemployee :NameCode[0][1],
                           Signature:elem.Signature,
-                          Project:this.props.IdProject[this.state.projSelect][1],
-                          Labor:LaborCode[0][0],
-                          Hours: ctg[1]-0,
-                          date:this.props.date
+                          idproject:this.props.IdProject[this.state.projSelect][1],
+                          idlabor:LaborCode[0][0],
+                          Hrs: ctg[1]-0,
+                          date:formatDate(this.props.date)
                       }
               })
          array=array.concat(newArray)     
 
   })
 
-  console.log(array)
-
-var report={
-
-      reportList:array
-
-}
 
 //Update Local database
-axios.post('http://jva-sql:8080/Assistance/FlushJson.php',{report})
+axios.post('http://jva-sql:8080/Assistance/FlushJson.php',{report:array})
 .then((response)=> {
     
     //right now i will store the table in the redux state but in the real aplication i need to create a file outside app 
-    console.log("this is the data",response.data)
+    console.log("this is the data",response)
 })
 .catch(error => {
   console.log("this is the error",error)

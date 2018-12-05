@@ -1,6 +1,5 @@
 import React,{Component} from "react";
 import { connect } from 'react-redux';
-var FontAwesome = require('react-fontawesome');
 import * as actionTypes from './../../../../store/actions';
 
 class HomeProfile extends Component {
@@ -13,8 +12,9 @@ class HomeProfile extends Component {
 
      Select(){
             var Supervisor=document.getElementById("inlineFormCustomSelectSuperv").value;
-            var date=document.getElementById("inlineFormCustomSelectDate").value;
+            var date=document.getElementById("date").value;
 
+            
             //date
             var dayNow=Date.now();
             var dayBefore=new Date(date);
@@ -47,9 +47,11 @@ class HomeProfile extends Component {
             var Time = time-i*86400000;
             var date = new Date(Time);
             date=date.toDateString()
-            arrayDate=arrayDate.concat(<option className="text-dark" value={date}>{date}</option> )
+            arrayDate=arrayDate.concat(date )
         }
-
+       
+       var  optionDate=arrayDate.map(elem=>{ return ( <option className="text-dark" value={elem} >{elem}</option> )})
+       
       return (
 
 
@@ -60,18 +62,17 @@ class HomeProfile extends Component {
                         <h1>Sign In</h1>
                          
                                 <div class="form-group  ">
-                                    <label class=" text-white" for="inlineFormCustomSelectSuperv">Supervisor</label>
+                                    <label class=" text-white" for="inlineFormCustomSelectSuperv">Select Supervisor and Date</label>
                                     <select class="custom-select  mb-3" id="inlineFormCustomSelectSuperv">
                                         {arraySupervisor}
                                     </select>
+                                    
+                                    <select class="custom-select mb-3"  id="date">
+                                        {optionDate}
+                                </select>
                                 </div>
-                                <div class="form-group  ">
-                                    <label class=" text-white" for="inlineFormCustomSelectDate">Date</label>
-                                    <select class="custom-select  mb-3" id="inlineFormCustomSelectDate">
-                                        {arrayDate}
-                                    </select>
-                                </div>
-                          
+                               
+                               
                         
                         <div class="container">
                             
