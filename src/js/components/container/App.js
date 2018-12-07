@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Profile from "./Profile/Profile"
+
 
 import { createStore,combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 import globalStateReducer from '../../../store/reducers/globalState';
+import Home from "./Home/Home"
 
 
 const rootReducers = combineReducers({
@@ -20,7 +21,7 @@ class App extends Component {
 
   render() {
     return (
-      <Profile/>
+      <Home/>
     );
   }
 }
