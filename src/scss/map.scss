@@ -1,0 +1,72 @@
+footer{
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/black-wallpaper-10.jpg) #111;
+}
+#footInfo{
+  text-align: left;
+  list-style: none;
+}
+.footLocation{
+  text-align: center;
+  list-style: none;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 176px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+
+
+
+
+#map {
+  height: 400px;
+  width:100%;
+  -webkit-transition: width 2s;/* For Safari 3.1 to 6.0 */
+  transition: width 2s,
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+#destination-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+  color:black;
+}
+
+#destination-input:focus {
+  border-color: #4d90fe;
+}
+#destination-input::placeholder{
+  color:red
+}

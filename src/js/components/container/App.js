@@ -6,7 +6,7 @@ import { createStore,combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 import globalStateReducer from '../../../store/reducers/globalState';
-import Home from "./Home/Home"
+import Block from "./Block"
 
 
 const rootReducers = combineReducers({
@@ -21,7 +21,7 @@ class App extends Component {
 
   render() {
     return (
-      <Home/>
+      <Block/>
     );
   }
 }

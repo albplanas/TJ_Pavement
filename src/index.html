@@ -21,7 +21,126 @@
 </head>
 <body >
 
-               <div id="root" />
+  <!--Google Map Search Box and routing Address scripts isn't compatible with react js-->
+    <script>
+
+        function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+            mapTypeControl: false,
+            center: {lat: 25.834040, lng: -80.250015},
+            zoom: 15
+          });
+          var marker = new google.maps.Marker({
+          position: {lat: 25.834040, lng: -80.250015},
+          map: map,
+          title: 'TJ Pavement'
+        });
+          new AutocompleteDirectionsHandler(map);
+        }
+        
+        
+        function AutocompleteDirectionsHandler(map) {
+          this.map = map;
+          this.originPlaceId = "ChIJv1_0NOqw2YgRbHpZJWDc9x0";
+          this.destinationPlaceId = null;
+          this.travelMode = 'DRIVING';
+          var goEstimate= document.getElementById('Go_Estimate');
+          var destinationInput = document.getElementById('destination-input');
+          
+          this.directionsService = new google.maps.DirectionsService;
+          this.directionsDisplay = new google.maps.DirectionsRenderer;
+          this.directionsDisplay.setMap(map);
+        
+          
+          var destinationAutocomplete = new google.maps.places.Autocomplete(
+              destinationInput, {placeIdOnly: true});
+        
+        
+        
+          
+          this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+        
+          this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(goEstimate);
+          this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+          
+        }
+        
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        
+        
+        AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+          var me = this;
+          autocomplete.bindTo('bounds', this.map);
+          autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place.place_id) {
+              window.alert("Please select an option from the dropdown list.");
+              return;
+            }
+            
+            me.destinationPlaceId = place.place_id;   
+            me.route();
+          });
+        
+        };
+        
+        AutocompleteDirectionsHandler.prototype.route = function() {
+
+        console.log(this.originPlaceId,this.destinationPlaceId )
+          if (!this.destinationPlaceId) {
+            return;
+          }
+          var me = this;
+        
+          this.directionsService.route({
+            origin: {'placeId': this.originPlaceId},
+            destination: {'placeId': this.destinationPlaceId},
+            travelMode: this.travelMode
+          }, function(response, status) {
+            if (status === 'OK') {
+              var data={
+                  destination:response.routes[0].legs[0].end_address,
+                  distance:response.routes[0].legs[0].distance.text,
+                  duration: response.routes[0].legs[0].duration.text,
+                  setup:true
+              }
+              
+              var dataString=JSON.stringify(data)
+                
+                localStorage.setItem("data",dataString);
+                console.log(localStorage)
+              me.directionsDisplay.setDirections(response);
+            } else {
+              window.alert('Directions request failed due to ' + status);
+            }
+          });
+        };
+         </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <div id="root"/>
+       
+
+
+           
+             
 
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -32,10 +151,25 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
-  
+    
 
 
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
