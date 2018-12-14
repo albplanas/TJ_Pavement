@@ -66,7 +66,7 @@ class Estimate extends Component {
        
         const script = document.createElement("script");
 
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDB5LteV7414moBuOPjaI7CSGAPNzMfmhs&libraries=places&callback=initMap";
+     
         script.async = true;
         script.defer = true;
         document.body.appendChild(script);
