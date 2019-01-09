@@ -34,7 +34,7 @@ import logo2 from './../../../../img/logos/tjp.png';
          <div class="col-md-5 mb-5">
            <ul class="footLocation">
              <li >
-             <iframe style={{width:"100%", height:"260px"}} frameborder="0"  src="https://www.google.com/maps/embed/v1/place?q=6600%20NW%2032nd%20Ave%2C%20Miami%2C%20FL%2033147&key=AIzaSyDB5LteV7414moBuOPjaI7CSGAPNzMfmhs" allowfullscreen></iframe>
+             <iframe style={{width:"100%", height:"260px"}} frameborder="0"  src="" allowfullscreen></iframe>
              </li>
            </ul>
          </div>
