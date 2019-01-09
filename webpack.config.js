@@ -32,7 +32,10 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|gif)$/,
+
+        //{ test: /\.(jpg|png|gif|svg|pdf)$/, use: [ { loader: 'file-loader', options: { name: '[name].[ext]', outputPath: './assets/images/' } } ] }
+
+        test: /\.(png|jpg|gif|svg|pdf)$/,
         use: [
             {
                 loader: 'file-loader',

@@ -9,6 +9,11 @@ import * as actionTypes from './../../../store/actions';
 
 
 import Home from "./Home/Home" 
+import Login from "./TopBar/Login/Login"
+import OrderCenter from "./Order/OrderCenter";
+import CustomerCenter from "./Customer/CostumerCenter"
+import Doc from "./Documents_Downloads/Doc"
+import Job from "./Jobs/JobsCenter"
 
 
 class Seccion extends Component {
@@ -24,18 +29,18 @@ class Seccion extends Component {
 
 
     componentWillMount(){
-      var num= this.props.door[this.props.door.length-1]-0
+      
       this.setState({
-          door:num
+          door:this.props.door
       })
     }
 
     componentWillReceiveProps(nextProps){
-        var num= nextProps.door[nextProps.door.length-1]-0
+        
         if(nextProps.door!==this.state.door){
             
             this.setState({
-                door:num
+                door:nextProps.door
             })
         }
     }
@@ -44,7 +49,12 @@ class Seccion extends Component {
         
         
    
-      return this.state.door===1?(<Home/>) :(<div/>)
+      return this.state.door==='door-home'?(<Home/>) :
+             this.state.door==='door-login'?(<Login/>):
+             this.state.door==='door-order'?(<OrderCenter/>):
+             this.state.door==='door-customer'?(<CustomerCenter/>):
+             this.state.door==='door-doc'?(<Doc/>):
+             this.state.door==='door-job'?(<Job/>):(<div/>)
 
     
   }

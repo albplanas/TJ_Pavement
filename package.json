@@ -30,18 +30,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "google-maps-react": "^2.0.2",
     "ify-loader": "^1.1.0",
-    "lodash": "^4.17.11",
     "node-rest-client": "^3.1.0",
     "react-fontawesome": "^1.6.1",
-    "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",
-    "recompose": "^0.30.0",
-    "redux": "^4.0.0",
-    "tedious": "^3.0.1"
+    "react-signature-canvas": "^1.0.0-alpha.1",
+    "redux": "^4.0.0"
   }
 }

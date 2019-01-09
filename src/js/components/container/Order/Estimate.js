@@ -5,28 +5,30 @@ import * as actionTypes from './../../../../store/actions';
 
 
 
-
+import logo2 from './../../../../img/logos/tjp.png';
 
 
 class Estimate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          door:1,
-          select:1
+            card:false
         };
         
         this.onLoad=this.onLoad.bind(this)
-       
+        this.Card=this.Card.bind(this)
       }
-
+      Card(){
+        this.setState({
+          card:true
+        })
+      }
       onLoad(){
        var data= localStorage.getItem("data");
        if(data){
          var value= JSON.parse(data);
          if(value.setup===true){
-              
-              document.getElementById('map').style.width="50%";
+
 
               var newData={
                 destination:value.destination,
@@ -46,19 +48,12 @@ class Estimate extends Component {
       componentWillMount(){
                
 
-        this.setState({
-            select:this.props.select
-        })
+        
       }
   
       componentWillReceiveProps(nextProps){
         
-          if(nextProps.select!==this.state.select){
-              
-              this.setState({
-                select:nextProps.select
-              })
-          }
+         
       }
 
   
@@ -74,17 +69,24 @@ class Estimate extends Component {
 
     render() { 
         
+      var cardStyle= this.state.card===true?{display:"block",maxWidth: "18rem"}:{display:"none",maxWidth: "18rem"}
                    
       return (
-        <div className="ServiceChild container">
-              <button id="Go_Estimate" className="btn controls btn-info " style={{width:"auto", height:"34px",marginLeft:"10px"}}>Go</button>
+        <div className="ServiceChild mt-3">
+
+              
+
+              <h5 class="mt-5 mb-2">Choose a location to deliver our products</h5>
+              <button id="Go_Estimate" className="btn controls btn-info " style={{width:"auto", height:"34px",marginLeft:"10px"}} onClick={this.Card}>Go</button>
               <input id="destination-input" class="controls" type="text"
               placeholder="Enter a destination location" onChange={this.onLoad} onSelect={this.onLoad} />
 
-
+             
 
             <div id="map" ></div>
-                
+
+
+
              
         </div>
 
@@ -100,13 +102,13 @@ class Estimate extends Component {
   const mapStateToProps = state => {
     return {
             door:state.globalState.door,
-            select:state.globalState.serviceSelect
+            
     };
   };
  const mapDispatchToProps = dispatch => {
     return {
         onDoorSelect: (value) => dispatch({type: actionTypes.DOOR , value:value}),
-        onChangeSelect: (value) => dispatch({type: actionTypes.SERVICESDOOR , value:value})
+       
     };
 };
   export default connect(mapStateToProps,mapDispatchToProps )(Estimate);

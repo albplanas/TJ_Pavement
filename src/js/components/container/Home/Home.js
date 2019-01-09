@@ -193,7 +193,7 @@ function Sponsors(){
                 <div class="clearfix"></div>
                 <div class="col-lg-12 text-center">
                   <div id="success"></div>
-                  <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                  <button id="sendMessageButton" class="btn btn-warning btn-xl text-uppercase text-white mt-3" type="submit">Send Message</button>
                 </div>
               </div>
             </form>

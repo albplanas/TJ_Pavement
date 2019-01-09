@@ -41,6 +41,9 @@ nav a{
       background: #343a40; 
       padding:10px;
       margin-top:10px;
+      .nav-link{
+        color:white;
+      }
     }
    .nav-link{
       color:white;
@@ -50,4 +53,8 @@ nav a{
       display: none;
       
       }
+      .ml-3, .mx-3 {
+         margin-left: 0rem!important; 
+         margin-top: 5px;
+    }
     }

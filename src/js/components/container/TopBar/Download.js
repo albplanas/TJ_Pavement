@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import logo2 from './../../../../img/logos/tjp.png';
+
 import { connect } from 'react-redux';
 
 import * as actionTypes from './../../../../store/actions';
@@ -14,9 +14,17 @@ class Doc_Down extends Component {
         
       };
   
-   
+      this.Select=this.Select.bind(this);
+
      
     }
+
+
+    Select(){
+      this.props.onDoorSelect('door-doc')
+    }
+
+
 render(){
 
   var Options_A=["MSDS","Technical Data Sheet","Mill Certificate"];
@@ -50,10 +58,10 @@ render(){
   return (
 
     <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle " id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="nav-link dropdown-toggle " id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.Select}>
     Documents
     </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+   {/* <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
       <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Materials Data</a>
        
@@ -72,7 +80,7 @@ render(){
         <SuperOptions array={[{name:"Application for Business Credit and Agreement",array:Options_C},{name:"Credit Card Authorization Form",array:Options_C}]}/>
       </li>
     
-    </ul>
+    </ul>*/} 
   </li>
   )
 

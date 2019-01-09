@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     
+    
 
     <title>TJ Pavement</title>
 </head>
@@ -46,7 +47,7 @@
           this.travelMode = 'DRIVING';
           var goEstimate= document.getElementById('Go_Estimate');
           var destinationInput = document.getElementById('destination-input');
-          
+          var Chart=document.getElementById('resultCard');
           this.directionsService = new google.maps.DirectionsService;
           this.directionsDisplay = new google.maps.DirectionsRenderer;
           this.directionsDisplay.setMap(map);
@@ -62,6 +63,7 @@
         
           this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(goEstimate);
           this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+          this.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(Chart);
           
         }
         
@@ -119,7 +121,10 @@
          </script>
 
 
+        
 
+           
+        
 
 
 
@@ -151,7 +156,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-    
+    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
 
 
 

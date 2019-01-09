@@ -6,8 +6,9 @@ import * as actionTypes from '../actions';
 
 const initialState = {
 
-    door:"door-1",
-    serviceSelect:1
+        login:false,
+        door:"door-home",
+        doorChild:""
    
 }
 const reducer = (state = initialState, action) => {
@@ -20,19 +21,12 @@ const reducer = (state = initialState, action) => {
             ...state,
             door:action.value
         }
-        
-
-        case actionTypes.SERVICESDOOR:
+        case actionTypes.DOORCHILD:
         return {
             ...state,
-            serviceSelect:action.value
+            doorChild:action.value
         }
-
-        case actionTypes.LOGIN:
-                        return {
-                            ...state,
-                            login:action.value
-                        }
+        
     }
     return state;
 };

@@ -6,11 +6,13 @@ import { createStore,combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 import globalStateReducer from '../../../store/reducers/globalState';
-import Block from "./Block"
+import someUsefulListReducer from "../../../store/reducers/someUsefulList"
+import Seccion from "./Seccion"
 
 
 const rootReducers = combineReducers({
-  globalState  : globalStateReducer
+  globalState  : globalStateReducer,
+  usefulList   : someUsefulListReducer
 }) 
 
 const store = createStore(rootReducers);
@@ -21,7 +23,7 @@ class App extends Component {
 
   render() {
     return (
-      <Block/>
+      <Seccion/>
     );
   }
 }
